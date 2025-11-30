@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-
+import BikeGsap from './BikeSkills/bikeGsap';
 
 const ThemeContext = createContext();
 
@@ -45,6 +45,7 @@ export const ThemeProvider = ({ children }) => {
       input: 'bg-gray-800 border-gray-700',
       videoText: '#FF8533',
       textWhite: 'text-white',
+      
     }
     : {
       bg: 'bg-gray-50',

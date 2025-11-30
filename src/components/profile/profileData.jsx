@@ -3,21 +3,21 @@ export const DEFAULT_PROFILES = [
   {
     id: 'profile-1',
     name: 'admin',
-    avatarUrl: '%PUBLIC_URL%/assets/profile/admin.png', // Use your existing photo
+    avatarUrl: '/assets/profile/admin.png', // Use your existing photo
     colorScheme: '#fa7522ff', // Orange to match your portfolio
     role: 'Controller'
   },
   {
     id: 'profile-2',
     name: 'Recruiter',
-    avatarUrl: '%PUBLIC_URL%/assets/profile/gt650.jpg',
+    avatarUrl: '/assets/profile/gt650.jpg',
     colorScheme: '#ffa500',
     role: 'Business'
   },
   {
     id: 'profile-3',
     name: 'Stalker',
-    avatarUrl: '%PUBLIC_URL%/assets/profile/stalker.jpg',
+    avatarUrl: '/assets/profile/stalker.jpg',
     colorScheme: '#ff0101ff',
     role: 'Viewer'
   },

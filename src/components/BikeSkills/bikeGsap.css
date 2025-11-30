@@ -1,58 +1,148 @@
-/* bikeGsap.css - paste/overwrite file in src/components/BikeSkills/ */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400..700&display=swap');
 
-/* SECTION wrapper that GSAP pins */
-.bike-wrapper {
+html {
+  scroll-behavior: smooth;
+}
+body{
+  overflow-x: hidden;
+  color: red;
+}
+#ready h1{
+  font-style: "Bebas Neue";
+}
+/* Make #skills relative so we can absolutely position the white panel */
+#skills {
   position: relative;
-  width: 100%;
-  height: 100vh;       /* full viewport height - adjust if you want larger section */
-  overflow: hidden;
-  background: #000;    /* black stage behind everything */
 }
 
-/* The overlay that contains the window (this is above the bike) */
-.overlay-center {
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.tvBox-panel {
   position: absolute;
   inset: 0;
+  margin: auto;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;  /* window is decorative, doesn't catch mouse */
-  z-index: 30;           /* on top of bike */
+
+  overflow: hidden;   /* IMPORTANT: bike is "inside" */
+  border-radius: 0;   /* GSAP animates this later */
+  z-index: 1;         /* behind text initially */
 }
 
-/* The "window frame" - big border creates a transparent center */
-.window-frame {
-  width: 80%;
-  height: 70%;
-  /* create transparent center by using a thick border */
-  border-style: solid;
-  border-color: #000;
-  border-width: 200px;     /* initial frame thickness */
-  border-radius: 50%;      /* start rounded, will be animated to 15% to form TV */
-  background: rgba(0,0,0,0); /* transparent center */
-  box-sizing: content-box; /* ensure border does not reduce inner transparent area */
-  z-index: 31;
-  transform-origin: center center;
-  /* enable GPU for smoother transform/scale animations */
-  will-change: transform, border-radius, border-width;
+/* Bike image inside TV */
+.ducati-img {
+  object-fit: contain;
+  display: block;
+  width: 90%;
 }
 
-/* Bike image - positioned so center of bike can land at center of window.
-   We use left:50% + translateX(-50%) to place the image's center at the container center,
-   then GSAP x transforms move it in/out relative to that center. */
-.bike-img {
+.frontEnd{
+  position: relative;
+  width: 100%;
+  text-align: center;
   position: absolute;
+  z-index: 9;
+  top: 140px;
+  font-size: 8rem;
   left: 50%;
-  bottom: 10%;            /* adjust vertical placement to taste */
-  transform: translateX(-50%); /* center horizontally by default */
-  z-index: 10;            /* below overlay (.overlay-center z-index:30) so it shows through window */
-  max-width: none;        /* prevent scaling constraints */
-  width: auto;
-  height: 70vh;           /* tune bike size - smaller or bigger as you like */
-  will-change: transform;
-  pointer-events: none;
+  transform: translateX(-50%);
+  
 }
 
-/* Make sure the image doesn't get constrained by other global rules:
-   you already have #bike in index.css, but absolute/left/top etc here are more specific.
-   If another rule still overrides, add !important to position/ z-index (last resort). */
+
+.text-box {
+  position: absolute;
+  top: 5%;                 /* moves to top of the box */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;             /* ensures text stays above image */
+}
+
+#title-h1 {
+  font-size: 14rem;
+  font-weight: 1000;
+  z-index: -9;
+  padding: 0;
+  color: red;
+  font-family: "Dancing Script", cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  padding-bottom: 0;
+}
+
+#panel-h1 {
+  font-size: 6rem;
+  width: 100%;
+}
+
+#list{
+  font-family: "Bebas Neue", cursive;
+  width: 150%;
+  border-color: black;
+  color: white;
+  position: relative;
+  left: 5rem;
+  top: -4rem;
+  margin-left: 20px;
+  font-size: 9rem;
+  -webkit-text-stroke: 0.01rem black;
+}
+
+#lang {
+  color: green;
+  font-size: 3rem;
+  position: relative;
+  width: 6rem;
+  top: -5rem;
+  left: -2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 0;
+}
+#lang span{
+   display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+#spSkills{
+  font-family: "Bebas Neue", cursive;
+  width: 150%;
+  border-color: black;
+  color: white;
+  position: relative;
+  left: 5rem;
+  top: -4rem;
+  margin-left: 20px;
+  font-size: 9rem;
+  -webkit-text-stroke: 0.01rem black;
+}
+
+  #special{
+  color: green;
+  font-size: 3rem;
+  position: absolute;
+  width: 6rem;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 0;
+}
+

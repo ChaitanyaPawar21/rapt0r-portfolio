@@ -5,7 +5,7 @@ import Hero from "./components/Hero";
 import BuildSheet from "./components/BuildSheet";
 import ProjectShowcase from "./components/ProjectShowcase";
 import { useTheme } from "./components/ThemeContext";
-import BikeGsap from "./components/bikeGsap"; 
+import BikeGsap from "./components/BikeSkills/bikeGsap"; 
 
 /**
  * SmoothRPMMeter + fade-out + optional engine sound
