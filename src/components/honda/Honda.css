@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: white;
+}
+
+#ready2 h1 {
+    font-family: "Bebas Neue", sans-serif;
+    color: black;
+}
+
+/* Make #Skills2 relative so we can absolutely position the white panel */
+#Skills2 {
+    position: relative;
+    background-color: white;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.tvBox-panel {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0;
+    z-index: 1;
+}
+
+/* Bike image inside TV */
+.Honda-img {
+    object-fit: contain;
+    display: block;
+    width: 90%;
+    max-width: 100%;
+    height: auto;
+}
+
+
+.text-box2 {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    width: 90%;
+    max-width: 100%;
+}
+
+#title-h2 {
+    font-size: 14rem;
+    font-weight: 1000;
+    z-index: -9;
+    padding: 0;
+    color: #0346d7;
+    font-family: "Bebas Neue", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding-bottom: 0;
+}
+
+#panel-h2 {
+    font-size: 6rem;
+    width: 100%;
+}
+
+#list2 {
+    font-family: "Bebas Neue", cursive;
+    width: 150%;
+    border-color: black;
+    color: white;
+    position: relative;
+    left: 5rem;
+    top: -4rem;
+    margin-left: 20px;
+    font-size: 9rem;
+    -webkit-text-stroke: 0.01rem black;
+}
+
+#lang2 {
+    color: red;
+    font-size: 3rem;
+    position: relative;
+    width: 6rem;
+    top: -5rem;
+    left: -2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0;
+}
+
+#lang2 span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#special2 {
+    color: red;
+    font-size: 3rem;
+    position: absolute;
+    width: auto;
+    top: 21rem;
+    left: 2%;
+    transform: translateX(-50%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0;
+}
+
+#special2 span {
+    position: relative;
+    top: -4rem;
+    right: -9rem;
+    width: 28rem;
+}
+
+#spSkills2 {
+    font-family: "Bebas Neue", cursive;
+    border-color: black;
+    color: white;
+    position: relative;
+    left: 28rem;
+    top: -2rem;
+    margin-left: 20px;
+    font-size: 9rem;
+    -webkit-text-stroke: 0.01rem black;
+    white-space: nowrap;
+}
+
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Mobile Devices (≤ 480px) */
+@media (max-width: 480px) {
+    #title-h2 {
+        font-size: clamp(3rem, 15vw, 6rem);
+    }
+
+    #panel-h2 {
+        font-size: clamp(2rem, 10vw, 3.5rem);
+    }
+
+    .frontEnd {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+        top: clamp(60px, 15vw, 100px);
+    }
+
+    #list2,
+    #spSkills2 {
+        font-size: clamp(3rem, 12vw, 5rem);
+        left: clamp(1rem, 5vw, 2rem);
+        top: clamp(-2rem, -5vw, -1rem);
+        margin-left: 10px;
+        width: 100%;
+        max-width: calc(100vw - 2rem);
+        -webkit-text-stroke: 0.05rem black;
+    }
+
+    #lang2 {
+        font-size: clamp(1.2rem, 5vw, 1.8rem);
+        width: auto;
+        max-width: 90%;
+        left: clamp(-1rem, -3vw, 0rem);
+        top: clamp(-3rem, -8vw, -2rem);
+        gap: 0.3rem;
+    }
+
+    #lang2 span {
+        gap: 4px;
+    }
+
+    #special2 {
+        font-size: clamp(1.2rem, 5vw, 1.8rem);
+        width: auto;
+        max-width: 80%;
+        gap: 0.3rem;
+    }
+
+    .Honda-img {
+        width: 95%;
+    }
+
+    .text-box2 {
+        width: 95%;
+    }
+}
+
+/* Tablets (481px – 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    #title-h2 {
+        font-size: clamp(6rem, 12vw, 10rem);
+    }
+
+    #panel-h2 {
+        font-size: clamp(3.5rem, 8vw, 5rem);
+    }
+
+    .frontEnd {
+        font-size: clamp(4rem, 10vw, 6rem);
+        top: clamp(100px, 12vw, 120px);
+    }
+
+    #list2,
+    #spSkills2 {
+        font-size: clamp(5rem, 10vw, 7rem);
+        left: clamp(2rem, 6vw, 4rem);
+        top: clamp(-3rem, -5vw, -2rem);
+        margin-left: 15px;
+        width: 130%;
+        max-width: calc(100vw - 3rem);
+        -webkit-text-stroke: 0.08rem black;
+    }
+
+    #lang2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        width: 5rem;
+        left: clamp(-1.5rem, -2vw, -1rem);
+        top: clamp(-4rem, -6vw, -3rem);
+        gap: 0.2rem;
+    }
+
+    #lang2 span {
+        gap: 6px;
+    }
+
+    #special2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        width: 5rem;
+        gap: 0.2rem;
+    }
+}
+
+/* Large Tablets / Small Laptops (769px – 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #title-h2 {
+        font-size: clamp(10rem, 11vw, 12rem);
+    }
+
+    #panel-h2 {
+        font-size: clamp(4.5rem, 6vw, 5.5rem);
+    }
+
+    .frontEnd {
+        font-size: clamp(6rem, 8vw, 7.5rem);
+        top: clamp(120px, 13vw, 140px);
+    }
+
+    #list2,
+    #spSkills2 {
+        font-size: clamp(7rem, 9vw, 8.5rem);
+        left: clamp(3rem, 5vw, 4.5rem);
+        top: clamp(-3.5rem, -4.5vw, -3rem);
+        margin-left: 18px;
+        width: 145%;
+        -webkit-text-stroke: 0.09rem black;
+    }
+
+    #lang2 {
+        font-size: clamp(2.3rem, 3.5vw, 2.8rem);
+        width: 5.5rem;
+        left: clamp(-1.8rem, -2vw, -1.5rem);
+        top: clamp(-4.5rem, -5.5vw, -4rem);
+        gap: 0.15rem;
+    }
+
+    #lang2 span {
+        gap: 7px;
+    }
+
+    #special2 {
+        font-size: clamp(2.3rem, 3.5vw, 2.8rem);
+        width: 5.5rem;
+        gap: 0.15rem;
+    }
+}
+
+/* Desktop (≥ 1025px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    #title-h2 {
+        font-size: clamp(12rem, 10vw, 14rem);
+    }
+
+    #panel-h2 {
+        font-size: clamp(5.5rem, 5vw, 6rem);
+    }
+
+    .frontEnd {
+        font-size: clamp(7.5rem, 7vw, 8rem);
+        top: clamp(140px, 12vw, 140px);
+    }
+
+    #list2,
+    #spSkills2 {
+        font-size: clamp(8.5rem, 8vw, 9rem);
+        left: clamp(4.5rem, 5vw, 5rem);
+        top: clamp(-3.8rem, -4.2vw, -4rem);
+        -webkit-text-stroke: 0.01rem black;
+    }
+
+    #lang2 {
+        font-size: clamp(2.8rem, 3vw, 3rem);
+        width: 6rem;
+        left: clamp(-1.8rem, -2vw, -2rem);
+        top: clamp(-4.8rem, -5.2vw, -5rem);
+    }
+
+    #special2 {
+        font-size: clamp(2.8rem, 3vw, 3rem);
+        width: 6rem;
+    }
+}
+
+/* Ultra-Wide Displays (≥ 1441px) */
+@media (min-width: 1441px) {
+    #title-h2 {
+        font-size: 14rem;
+    }
+
+    #panel-h2 {
+        font-size: 6rem;
+    }
+
+    .frontEnd {
+        font-size: 8rem;
+        top: 140px;
+    }
+
+    #list2,
+    #spSkills2 {
+        font-size: 9rem;
+        left: 5rem;
+        top: -4rem;
+        width: 150%;
+    }
+
+    #lang2 {
+        font-size: 3rem;
+        width: 6rem;
+        left: -2rem;
+        top: -5rem;
+    }
+
+    #special2 {
+        font-size: 3rem;
+        width: 6rem;
+    }
+
+    .text-box2 {
+        width: 80%;
+    }
+}
+
+/* Extra-Wide 4K+ Displays (≥ 2560px) */
+@media (min-width: 2560px) {
+    #title-h2 {
+        font-size: clamp(14rem, 8vw, 18rem);
+    }
+
+    #panel-h2 {
+        font-size: clamp(6rem, 4vw, 8rem);
+    }
+
+    .frontEnd {
+        font-size: clamp(8rem, 5vw, 10rem);
+    }
+
+    #list2,
+    #spSkills2 {
+        font-size: clamp(9rem, 6vw, 12rem);
+    }
+
+    #lang2,
+    #special2 {
+        font-size: clamp(3rem, 2vw, 4rem);
+    }
+}
