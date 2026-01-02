@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import BikeGsap from './BikeSkills/bikeGsap';
+import BikeGsap from '../BikeSkills/bikeGsap';
 
 const ThemeContext = createContext();
 
@@ -21,7 +21,7 @@ export const ThemeProvider = ({ children }) => {
     black: '/assets/bikes/bike-black.png',
   };
 
-  const raptor={
+  const raptor = {
     white: '/assets/bikes/logoWhite.png',
     black: '/assets/bikes/logo.png',
   }
@@ -49,7 +49,7 @@ export const ThemeProvider = ({ children }) => {
       input: 'bg-gray-800 border-gray-700',
       videoText: '#FF8533',
       textWhite: 'text-white',
-      
+
     }
     : {
       bg: 'bg-gray-50',
@@ -125,14 +125,13 @@ export const ThemeProvider = ({ children }) => {
                       }
                       setBikeColor(color);
                     }}
-                    className={`relative overflow-hidden rounded-lg border-4 transition-all ${
-                      bikeColor === color
+                    className={`relative overflow-hidden rounded-lg border-4 transition-all ${bikeColor === color
                         ? 'border-orange-500 scale-110'
                         : 'border-gray-500 hover:scale-105'
-                    }`}
+                      }`}
                     aria-label={`Select ${color} bike`}
                   >
-                    <img 
+                    <img
                       src={logoColor[color]}
                       alt={`${color} bike`}
                       className="w-24 h-24 object-cover"

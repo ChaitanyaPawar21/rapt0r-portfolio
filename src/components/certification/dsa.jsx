@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, FileText, ExternalLink } from 'lucide-react';
-import { useTheme } from '../ThemeContext';
+import { useTheme } from '../Home/ThemeContext';
 
 const DSA = () => {
   const navigate = useNavigate();
@@ -10,8 +10,8 @@ const DSA = () => {
 
   // DSA certifications - replace with your actual certification PDFs/images
   const certifications = [
-    { 
-      src: '/assets/certificates/react.jpg', 
+    {
+      src: '/assets/certificates/react.jpg',
       alt: 'DSA Certification 1',
       title: 'Data Structures & Algorithms (C++)',
       description: 'Maps & Sets, Trees & Graphs, Sorting & Searching',

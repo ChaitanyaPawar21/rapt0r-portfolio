@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { ThemeProvider } from './components/ThemeContext';
+import { ThemeProvider } from './components/Home/ThemeContext';
 import MotorcyclePortfolio from './MotorcyclePortfolio';
 import FrontendFairingPage from './components/certification/frontend';
 import BackendEnginePage from './components/certification/backend';

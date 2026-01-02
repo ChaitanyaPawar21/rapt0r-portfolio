@@ -10,16 +10,16 @@ const ProjectShowcase = () => {
   const projects = [
     {
       id: 1,
-      name: 'BMW S1000RR',
-      subtitle: 'E-Commerce Platform',
+      name: 'DigiLocker Clone',
+      subtitle: 'ByteVault',
       description:
-        'High-performance online marketplace built for speed and reliability',
+        'Platform where user can store their certificates and documents',
       imageDark:
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop',
+        '../assets/projects/bytevault.png',
       imageLight:
-        'https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?w=800&h=500&fit=crop',
-      specs: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-      stats: { speed: '98', power: '50K users', torque: '1.2s load' },
+        '../assets/projects/bytevault.png',
+      specs: ['React', 'Node.js', 'MongoDB'],
+      stats: { speed: '130', power: '18hp', torque: '27 Nm' },
       challenge:
         'Built a scalable platform handling 50K daily users with real-time inventory sync',
       results: [
@@ -27,6 +27,7 @@ const ProjectShowcase = () => {
         '340% conversion increase',
         'Sub 1.5s page loads',
       ],
+      link: 'https://github.com/ChaitanyaPawar21/ProjectSIH',
     },
     {
       id: 2,
@@ -47,6 +48,7 @@ const ProjectShowcase = () => {
         'Custom chart library',
         'Mobile-first responsive',
       ],
+      link: 'https://github.com/ChaitanyaPawar21/ProjectSIH',
     },
     {
       id: 3,
@@ -67,6 +69,7 @@ const ProjectShowcase = () => {
         'Push notifications',
         'Offline-first architecture',
       ],
+      link: 'https://github.com/ChaitanyaPawar21/ProjectSIH',
     },
     {
       id: 4,
@@ -87,6 +90,7 @@ const ProjectShowcase = () => {
         'Multi-language support',
         'Custom fine-tuning pipeline',
       ],
+      link: 'https://github.com/ChaitanyaPawar21/ProjectSIH',
     },
   ];
 
@@ -170,6 +174,7 @@ const ProjectShowcase = () => {
                     'hover:bg-'
                   )} ${theme.accent} ${darkMode ? 'hover:text-black' : 'hover:text-white'
                     } font-bold py-3 transition-all`}
+                  onClick={() => window.open(project.link, '_blank')}
                 >
                   VIEW BLUEPRINT <ExternalLink className="inline ml-2" size={16} />
                 </button>
@@ -178,32 +183,6 @@ const ProjectShowcase = () => {
           ))}
         </div>
       </div>
-
-      {/* Project Modal */}
-      {selectedProject && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
-          onClick={() => setSelectedProject(null)}
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') setSelectedProject(null);
-          }}
-          tabIndex={-1}
-        >
-          <div
-            role="document"
-            className={`${theme.card} ${theme.border} border max-w-3xl w-full p-6 relative`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className="absolute top-3 right-3" onClick={() => setSelectedProject(null)}>
-              <X />
-            </button>
-            <h3 className="text-2xl font-bold mb-2">{selectedProject.name}</h3>
-            <p className={theme.textSecondary}>{selectedProject.description}</p>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

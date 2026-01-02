@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, FileText, ExternalLink } from 'lucide-react';
-import { useTheme } from '../ThemeContext';
+import { useTheme } from '../Home/ThemeContext';
 
 const Frontend = () => {
   const navigate = useNavigate();
@@ -10,8 +10,8 @@ const Frontend = () => {
 
   // Frontend certifications - replace with your actual certification PDFs/images
   const certifications = [
-    { 
-      src: '/assets/certificates/react.jpg', 
+    {
+      src: '/assets/certificates/react.jpg',
       alt: 'Frontend Certification ',
       title: 'React Certification',
       description: 'React Application Development',

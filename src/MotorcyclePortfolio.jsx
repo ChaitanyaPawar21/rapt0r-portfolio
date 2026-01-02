@@ -1,12 +1,13 @@
 // src/MotorcyclePortfolio.js
 import React, { useState, useEffect, useRef } from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import BuildSheet from "./components/BuildSheet";
-import ProjectShowcase from "./components/ProjectShowcase";
-import { useTheme } from "./components/ThemeContext";
+import Navbar from "./components/Home/Navbar";
+import Hero from "./components/Home/Hero";
+import BuildSheet from "./components/Home/BuildSheet";
+import ProjectShowcase from "./components/Home/ProjectShowcase";
+import { useTheme } from "./components/Home/ThemeContext";
 import BikeGsap from "./components/BikeSkills/bikeGsap"; 
 import Honda from "./components/honda/Honda"; 
+import Contact from "./components/contact/Contact";
 
 /**
  * SmoothRPMMeter + fade-out + optional engine sound
@@ -228,6 +229,7 @@ const MotorcyclePortfolioInner = ({ initialSection = null, introMode = "auto" })
           <BikeGsap />
          <Honda />
            <ProjectShowcase />
+           <Contact />
         </main>
 
         <footer className="text-center py-12 text-sm text-gray-500">

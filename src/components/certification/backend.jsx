@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, FileText, ExternalLink } from 'lucide-react';
-import { useTheme } from '../ThemeContext';
+import { useTheme } from '../Home/ThemeContext';
 
 const Backend = () => {
   const navigate = useNavigate();
@@ -10,9 +10,9 @@ const Backend = () => {
 
   // Backend certifications - replace with your actual certification PDFs/images
   const certifications = [
-    
-    { 
-      src: './assets/certificates/DevOps.png', 
+
+    {
+      src: './assets/certificates/DevOps.png',
       alt: 'Backend Certification 2',
       title: 'Node.js Certification',
       description: 'Server-side JavaScript runtime',

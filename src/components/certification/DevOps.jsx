@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, FileText, ExternalLink } from 'lucide-react';
-import { useTheme } from '../ThemeContext';
+import { useTheme } from '../Home/ThemeContext';
 
 const DevOps = () => {
   const navigate = useNavigate();
@@ -10,8 +10,8 @@ const DevOps = () => {
 
   // DevOps certifications - replace with your actual certification PDFs/images
   const certifications = [
-    { 
-      src: '/assets/certificates/DevOps.png', 
+    {
+      src: '/assets/certificates/DevOps.png',
       alt: 'DevOps Certification 1',
       title: 'DevOps Certification',
       description: 'Git, Docker, AWS, Kubernetes',

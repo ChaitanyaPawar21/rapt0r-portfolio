@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Zap } from 'lucide-react';
 import { useTheme } from './ThemeContext';
-import './BikeSkills/bikeGsap.css'; // keep styling
+import '../BikeSkills/bikeGsap.css'; // keep styling
 
 const PerformanceSpecs = () => {
   const { darkMode, theme } = useTheme();

@@ -16,7 +16,6 @@ const BuildSheet = () => {
         start: "-30% top",
         end: "+=100%",
         pin: false,
-        markers: true
       }
     });
 

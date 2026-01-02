@@ -21,7 +21,6 @@ const Honda = () => {
                 end: "+=300%",
                 scrub: 1,
                 pin: true,
-                markers: true,
 
             },
         });
