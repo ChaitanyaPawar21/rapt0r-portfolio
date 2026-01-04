@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useTheme } from '../Home/ThemeContext';
-import { Mail, User, MessageSquare, Send, MapPin, Phone } from 'lucide-react';
+import { Mail, User, MessageSquare, Send, MapPin, Github } from 'lucide-react';
 import './contact.css';
 
 const Contact = () => {
     const { darkMode, theme } = useTheme();
+    const [result, setResult] = useState("");
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -18,11 +19,33 @@ const Contact = () => {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission here
-        console.log('Form submitted:', formData);
-        alert('Message sent! (This is a demo)');
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        const formDataToSend = new FormData(event.target);
+        formDataToSend.append("access_key", "455c2c3c-1922-427e-b244-92c6e6e97e42");
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formDataToSend
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            setResult("Message sent successfully!");
+            // Clear the form
+            setFormData({
+                name: '',
+                email: '',
+                message: ''
+            });
+            // Clear success message after 5 seconds
+            setTimeout(() => {
+                setResult("");
+            }, 5000);
+        } else {
+            setResult("Failed to send message. Please try again.");
+        }
     };
 
     return (
@@ -62,11 +85,11 @@ const Contact = () => {
                     <div className="space-y-4 text-left">
                         <div className="flex items-center gap-3">
                             <Mail className={theme.accent} size={20} />
-                            <span className={theme.textSecondary}>chaitanyapawar2109@gmail.com</span>
+                            <span className={theme.textSecondary}>chaitanya21pawar@gmail.com</span>
                         </div>
                         <div className="flex items-center gap-3">
-                            <Phone className={theme.accent} size={20} />
-                            <span className={theme.textSecondary}>+91 XXX-XXX-XXXX</span>
+                            <Github className={theme.accent} size={20} />
+                            <span className={theme.textSecondary}>ChaitanyaPawar21</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <MapPin className={theme.accent} size={20} />
@@ -83,7 +106,7 @@ const Contact = () => {
                         SEND A MESSAGE
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={onSubmit} className="space-y-6">
                         {/* Name Input */}
                         <div>
                             <label htmlFor="name" className={`block text-sm font-semibold mb-2 ${theme.textSecondary}`}>
@@ -146,6 +169,16 @@ const Contact = () => {
                             SEND MESSAGE
                             <Send size={20} />
                         </button>
+
+                        {/* Success/Error Message */}
+                        {result && (
+                            <div className={`mt-4 p-4 rounded text-center font-semibold ${result.includes('success')
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                                : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                                }`}>
+                                {result}
+                            </div>
+                        )}
                     </form>
 
                     {/* Additional Info */}
