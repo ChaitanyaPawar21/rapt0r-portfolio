@@ -80,16 +80,16 @@ const Hero = ({ setActiveSection }) => {
       {/* Background video (absolute) */}
       <div className="absolute inset-0 z-0">
         <video
-          ref={videoRef}
-          className="w-full h-full object-cover absolute inset-0"
-          src="./assets/bikes/ktm-ciematic.mp4" // change path if needed
-          poster="./assets/bikes/ktm1390.jpg"
-          playsInline
-          muted
-          loop
-          preload="metadata"
-          aria-label="Hero preview video"
-        />
+  ref={videoRef}
+  className="w-full h-full object-cover absolute inset-0"
+  src="https://res.cloudinary.com/drn3ezthq/video/upload/KTM_FHD_-_Made_with_Clipchamp_ruttav.mp4"
+  poster="/assets/bikes/ktm1390.webp"
+  playsInline
+  muted
+  loop
+  preload="metadata"
+  aria-label="Hero preview video"
+/>
         {/* slight overlay to darken video for text readability */}
         <div
           className={`absolute inset-0 pointer-events-none ${darkMode

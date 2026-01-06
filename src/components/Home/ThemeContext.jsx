@@ -1,7 +1,13 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import BikeGsap from '../BikeSkills/bikeGsap';
 
 const ThemeContext = createContext();
+
+// Mobile detection helper
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth <= 767;
+};
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
@@ -12,9 +18,30 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(true);
+  // Force light mode on mobile by default
+  const [darkMode, setDarkMode] = useState(() => !isMobileDevice());
   const [showThemeSelector, setShowThemeSelector] = useState(false);
-  const [bikeColor, setBikeColor] = useState('black');
+  const [bikeColor, setBikeColor] = useState(() => isMobileDevice() ? 'white' : 'black');
+  const [isMobile, setIsMobile] = useState(isMobileDevice);
+
+  // Listen for resize and force light mode on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = isMobileDevice();
+      setIsMobile(mobile);
+
+      // Force light mode on mobile
+      if (mobile) {
+        setDarkMode(false);
+        setBikeColor('white');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Check on mount
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const bikeImages = {
     white: '/assets/bikes/bike-white.png',
@@ -75,18 +102,19 @@ export const ThemeProvider = ({ children }) => {
     <ThemeContext.Provider
       value={{
         darkMode,
-        setDarkMode,
+        setDarkMode: isMobile ? () => { } : setDarkMode, // Disable theme switching on mobile
         theme,
         showThemeSelector,
-        setShowThemeSelector,
+        setShowThemeSelector: isMobile ? () => { } : setShowThemeSelector, // Disable on mobile
         bikeColor,
         bikeImages,
+        isMobile, // Expose isMobile to components
       }}
     >
       {children}
 
-      {/* Theme Selector Modal */}
-      {showThemeSelector && (
+      {/* Theme Selector Modal - Hidden on mobile */}
+      {showThemeSelector && !isMobile && (
         <div
           role="dialog"
           aria-modal="true"
@@ -126,8 +154,8 @@ export const ThemeProvider = ({ children }) => {
                       setBikeColor(color);
                     }}
                     className={`relative overflow-hidden rounded-lg border-4 transition-all ${bikeColor === color
-                        ? 'border-orange-500 scale-110'
-                        : 'border-gray-500 hover:scale-105'
+                      ? 'border-orange-500 scale-110'
+                      : 'border-gray-500 hover:scale-105'
                       }`}
                     aria-label={`Select ${color} bike`}
                   >

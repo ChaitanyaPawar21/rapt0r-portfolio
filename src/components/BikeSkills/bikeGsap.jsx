@@ -1,19 +1,16 @@
-// src/components/BikeGsap.js
+// src/components/BikeGsap.jsx
 import React from "react";
-import "../BikeSkills/bikeGsap.css";
+import "./bikeGsap.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHtml5, faCss3Alt, faReact } from '@fortawesome/free-brands-svg-icons';
-import { faLocationCrosshairs, faRobot } from '@fortawesome/free-solid-svg-icons';
+import { faReact, faJs, faCss3Alt } from '@fortawesome/free-brands-svg-icons';
+import { faLocationCrosshairs, faRobot, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useNavigate } from "react-router-dom";
-import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const BikeGsap = () => {
-  const navigate = useNavigate();
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -23,7 +20,6 @@ const BikeGsap = () => {
         end: "+=300%",
         scrub: 1,
         pin: true,
-
       },
     });
 
@@ -137,30 +133,19 @@ const BikeGsap = () => {
       ease: "back.out(1.7)",
     });
 
-    tl.to("#frontEnd", {
-      scrollTrigger: {
-        start: 2600,
-        end: 2800,
-        scrub: -1
-      },
-      x: 400,
-      duration: 2,
-      ease: "sine.out"
-    });
-
   }, []);
 
   return (
     <div
       id="skills"
-      className="skills-section"
+      className="Skills-section"
     >
       {/* Big heading */}
       <div
         id="ready"
         className="relative font-[Bebas Neue] text-[5vw] sm:text-[10vw] md:text-[15vw] lg:text-[30vw] font-bold whitespace-nowrap w-max mx-auto pt-32"
       >
-        <h1>TIME FOR SOME SKILL...s</h1>
+        <h1>TIME FOR MORE SKILLS</h1>
       </div>
 
       {/* TV box with bike inside */}
@@ -173,27 +158,27 @@ const BikeGsap = () => {
         />
 
         <div id="title-h1" className="absolute top-0 left-1/2 -translate-x-1/2 text-center">
-          <span className="mb-0 pd-0" id="box head">
+          <span className="mb-0 pd-0">
             <span className="inline-block">Frontend</span>
           </span>
           <div id="list" className="text-[3rem] relative top-5 -right-2">
             <span>BASE SPECS</span>
           </div>
           <div id="lang">
-            <span><FontAwesomeIcon icon={faHtml5} /> html</span>
-            <span><FontAwesomeIcon icon={faCss3Alt} /> CSS</span>
-            <span><FontAwesomeIcon icon={faReact} /> REACT</span>
+            <span><FontAwesomeIcon icon={faReact} /> React</span>
+            <span><FontAwesomeIcon icon={faJs} /> JavaScript</span>
+            <span><FontAwesomeIcon icon={faCss3Alt} /> CSS3</span>
           </div>
           <div id="special" className="absolute top-0 left-1/2 -translate-x-1/2 text-center">
             <div id="spSkills" className="text-[3rem] relative top-5 -right-2">SF EDITION</div>
             <span><FontAwesomeIcon icon={faLocationCrosshairs} />GSAP</span>
-            <span><FontAwesomeIcon icon={faRobot} />Prompt dev</span>
-            <span 
-  onClick={() => window.open("/frontend-fairing")}
-  style={{ cursor: 'pointer' }}
->
-  <FontAwesomeIcon icon={faPaperclip} />certificate
-</span>
+            <span><FontAwesomeIcon icon={faRobot} />Tailwind</span>
+            <span
+              onClick={() => window.open("/reliable-frontend")}
+              style={{ cursor: 'pointer' }}
+            >
+              <FontAwesomeIcon icon={faPaperclip} />certificate
+            </span>
 
           </div>
         </div>

@@ -7,7 +7,7 @@ import gsap from 'gsap';
 
 const Navbar = ({ activeSection, setActiveSection }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { darkMode, theme = {}, setShowThemeSelector } = useTheme() || {};
+  const { darkMode, theme = {}, setShowThemeSelector, isMobile } = useTheme() || {};
 
   const navRef = useRef(null);
   const navButtonsRef = useRef([]);
@@ -87,13 +87,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
       {menuOpen && (
         <div className={`md:hidden ${theme.bgSecondary || ''} ${theme.border || ''} border-t`}>
           <div className="px-4 py-4 space-y-3">
-            <button
-              onClick={() => setShowThemeSelector(true)}
-              className={`flex items-center gap-2 w-full ${theme.bgTertiary || ''} ${theme.border || ''} border px-4 py-2 ${theme.textSecondary || ''}`}
-            >
-              {darkMode ? <Moon size={20} /> : <Sun size={20} />}
-              <span className="text-sm font-semibold">CHANGE RIDE</span>
-            </button>
+            {/* Mobile devices use light mode only - no theme selector */}
             {navItems.map((item, idx) => (
               <button
                 key={item}

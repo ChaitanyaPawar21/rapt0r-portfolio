@@ -186,6 +186,7 @@ const ProfileSelector = ({ onProfileSelected }) => {
               </button>
             </div>
           ) : null}
+          <h3 className="text-white">use desktop for best experience</h3>
         </div>
       </div>
 
