@@ -8,12 +8,17 @@ import { faLocationCrosshairs, faRobot, faPaperclip, faDatabase, faGear } from '
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTheme } from "../Home/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Honda = () => {
     const navigate = useNavigate();
+    const { isMobile } = useTheme() || {};
+
+    // Only run animations on desktop
     useGSAP(() => {
+        if (isMobile) return; // Skip animations on mobile
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#Skills2",
@@ -146,8 +151,59 @@ const Honda = () => {
             ease: "sine.out"
         });
 
-    }, []);
+    }, [isMobile]);
 
+    // Mobile static view
+    if (isMobile) {
+        return (
+            <div id="Skills2" className="skills-mobile-container-honda">
+                {/* Backend Title */}
+                <h1 className="mobile-backend-title">Backend</h1>
+
+                {/* Bike Image */}
+                <div className="mobile-bike-wrapper-honda">
+                    <img
+                        src="/assets/skills/honda.png"
+                        alt="Honda Bike"
+                        className="mobile-honda-img"
+                    />
+                </div>
+
+                {/* Skills and Base Specs */}
+                <div className="mobile-skills-layout-honda">
+                    {/* Left Side - Skills */}
+                    <div className="mobile-skills-badges-honda">
+                        <div className="skill-badge-honda">
+                            <div className="skill-icon-honda">
+                                <FontAwesomeIcon icon={faNodeJs} />
+                            </div>
+                            <span>NODE.JS</span>
+                        </div>
+                        <div className="skill-badge-honda">
+                            <div className="skill-icon-honda">
+                                <FontAwesomeIcon icon={faDatabase} />
+                            </div>
+                            <span>MONGODB</span>
+                        </div>
+                        <div className="skill-badge-honda">
+                            <div className="skill-icon-honda">
+                                <FontAwesomeIcon icon={faGear} />
+                            </div>
+                            <span>APIs</span>
+                        </div>
+                    </div>
+
+                    {/* Right Side - BASE SPECS */}
+                    <div className="mobile-base-specs-honda">
+                        <span className="base-specs-line1">BASE</span>
+                        <span className="base-specs-line2">SPECS</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Desktop view with animations
     return (
         <div
             id="Skills2"

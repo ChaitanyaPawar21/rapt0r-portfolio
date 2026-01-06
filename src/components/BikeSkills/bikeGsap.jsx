@@ -2,17 +2,22 @@
 import React from "react";
 import "./bikeGsap.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faReact, faJs, faCss3Alt } from '@fortawesome/free-brands-svg-icons';
+import { faReact, faHtml5, faCss3Alt } from '@fortawesome/free-brands-svg-icons';
 import { faLocationCrosshairs, faRobot, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTheme } from "../Home/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const BikeGsap = () => {
+  const { isMobile } = useTheme() || {};
 
+  // Only run animations on desktop
   useGSAP(() => {
+    if (isMobile) return; // Skip animations on mobile
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#skills",
@@ -133,8 +138,59 @@ const BikeGsap = () => {
       ease: "back.out(1.7)",
     });
 
-  }, []);
+  }, [isMobile]);
 
+  // Mobile static view
+  if (isMobile) {
+    return (
+      <div id="skills" className="skills-mobile-container">
+        {/* Frontend Title */}
+        <h1 className="mobile-frontend-title">Frontend</h1>
+
+        {/* Bike Image */}
+        <div className="mobile-bike-wrapper">
+          <img
+            src="/assets/skills/ducati.png"
+            alt="Ducati Bike"
+            className="mobile-ducati-img"
+          />
+        </div>
+
+        {/* Skills and Base Specs */}
+        <div className="mobile-skills-layout">
+          {/* Left Side - Skills */}
+          <div className="mobile-skills-badges">
+            <div className="skill-badge">
+              <div className="skill-icon">
+                <FontAwesomeIcon icon={faHtml5} />
+              </div>
+              <span>HTML</span>
+            </div>
+            <div className="skill-badge">
+              <div className="skill-icon">
+                <FontAwesomeIcon icon={faCss3Alt} />
+              </div>
+              <span>CSS</span>
+            </div>
+            <div className="skill-badge">
+              <div className="skill-icon">
+                <FontAwesomeIcon icon={faReact} />
+              </div>
+              <span>REACT</span>
+            </div>
+          </div>
+
+          {/* Right Side - BASE SPECS */}
+          <div className="mobile-base-specs">
+            <span className="base-specs-line1">BASE</span>
+            <span className="base-specs-line2">SPECS</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop view with animations
   return (
     <div
       id="skills"
@@ -166,7 +222,7 @@ const BikeGsap = () => {
           </div>
           <div id="lang">
             <span><FontAwesomeIcon icon={faReact} /> React</span>
-            <span><FontAwesomeIcon icon={faJs} /> JavaScript</span>
+            <span><FontAwesomeIcon icon={faHtml5} /> HTML</span>
             <span><FontAwesomeIcon icon={faCss3Alt} /> CSS3</span>
           </div>
           <div id="special" className="absolute top-0 left-1/2 -translate-x-1/2 text-center">
