@@ -1,0 +1,131 @@
+{
+  "name": "portfolio-project",
+  "type": "directory",
+  "children": [
+    {
+      "name": "public",
+      "type": "directory",
+      "children": [
+        {
+          "name": "assets",
+          "type": "directory",
+          "path": "assets",
+          "children": [
+            {
+              "name": "bikes",
+              "type": "directory",
+              "path": "assets/bikes",
+              "children": [
+                { "name": "bike-black.png", "type": "file" },
+                { "name": "bike-white.png", "type": "file" },
+                { "name": "black-c.png",  "type": "file" },
+                { "name": "black.png",    "type": "file" },
+                { "name": "ktm-ciematic.mp4", "type": "file" },
+                { "name": "ktm1390.png",  "type": "file" },
+                { "name": "logo.png",     "type": "file" },
+                { "name": "logoWhite.png","type": "file" },
+                { "name": "myself.jpg",   "type": "file" },
+                { "name": "white-c.png",  "type": "file" }
+              ]
+            },
+            {
+              "name": "profile",
+              "type": "directory",
+              "path": "assets/profile",
+              "children": [
+                { "name": "admin.png", "type": "file" },
+                { "name": "gt650.jpg", "type": "file" },
+                { "name": "stalker.jpg", "type": "file" },
+                { "name": "w175.avif", "type": "file" }
+              ]
+            },
+            {
+              "name": "parts",
+              "type": "directory",
+              "path": "assets/parts",
+              "children": [
+                { "name": "bike.png",   "type": "file" },
+                { "name": "inline.png", "type": "file" },
+                { "name": "ecu.png",    "type": "file" },
+                { "name": "torque.png", "type": "file" }
+              ]
+            },
+            {
+              "name": "certificates",
+              "type": "directory",
+              "path": "assets/certificates",
+              "children": [
+                { "name": "certificate-frontend.pdf", "type": "file" },
+                { "name": "certificate-backend.pdf",  "type": "file" },
+                { "name": "certificate-devops.pdf",   "type": "file" }
+              ]
+            }
+          ]
+        },
+        { "name": "index.html",     "type": "file", "path": "index.html" },
+        { "name": "favicon.ico",    "type": "file", "path": "favicon.ico" },
+        { "name": "file-tree.json", "type": "file", "path": "file-tree.json" }
+      ]
+    },
+
+    {
+      "name": "src",
+      "type": "directory",
+      "path": "src",
+      "children": [
+        {
+          "name": "components",
+          "type": "directory",
+          "path": "src/components",
+          "children": [
+            {
+              "name": "admin",
+              "type": "directory",
+              "path": "src/components/admin",
+              "children": [
+                { "name": "AdminTerminal.js", "type": "file" }
+              ]
+            },
+            {
+              "name": "profile",
+              "type": "directory",
+              "path": "src/components/profile",
+              "children": [
+                { "name": "ProfileLoader.js",   "type": "file" },
+                { "name": "ProfileSelector.js", "type": "file" },
+                { "name": "profileData.js",     "type": "file" }
+              ]
+            },
+            {
+              "name": "certification",
+              "type": "directory",
+              "path": "src/components/certification",
+              "children": [
+                { "name": "frontend.js", "type": "file" },
+                { "name": "backend.js",  "type": "file" },
+                { "name": "DevOps.js",   "type": "file" },
+                { "name": "dsa.js",      "type": "file" }
+              ]
+            },
+            { "name": "Navbar.js",          "type": "file" },
+            { "name": "Hero.js",            "type": "file" },
+            { "name": "BuildSheet.js",      "type": "file" },
+            { "name": "ProjectShowcase.js", "type": "file" },
+            { "name": "ThemeContext.js",    "type": "file" }
+          ]
+        },
+        { "name": "App.js",               "type": "file", "path": "src/App.js" },
+        { "name": "App.css",              "type": "file", "path": "src/App.css" },
+        { "name": "index.js",             "type": "file", "path": "src/index.js" },
+        { "name": "index.css",            "type": "file", "path": "src/index.css" },
+        { "name": "MotorcyclePortfolio.js","type": "file", "path": "src/MotorcyclePortfolio.js" }
+      ]
+    },
+
+    { "name": "package.json",      "type": "file", "path": "package.json" },
+    { "name": "package-lock.json", "type": "file", "path": "package-lock.json" },
+    { "name": "README.md",         "type": "file", "path": "README.md" },
+    { "name": ".gitignore",        "type": "file", "path": ".gitignore" },
+    { "name": "tailwind.config.js","type": "file", "path": "tailwind.config.js" }
+  ]
+}
