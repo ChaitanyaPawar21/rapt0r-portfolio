@@ -12,8 +12,8 @@ const PerformanceSpecs = () => {
   // All your cards (unchanged)
   const skills = [
     {
-      category: 'Skills',
-      items: [],
+      category: 'Frontend Fairing',
+      items: ['React', 'Next.js', 'Typescript'],
       level: 50,
       route: '#skills',
       backgroundImage: '/assets/parts/bike.png',

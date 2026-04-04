@@ -12,11 +12,12 @@ gsap.registerPlugin(ScrollTrigger);
  * Full cinematic timeline similar to BikeGsap
  */
 export function initHondaDesktop() {
+    const trigger = document.getElementById('Skills2');
     const tl = gsap.timeline({
         scrollTrigger: {
-            trigger: "#Skills2",
+            trigger: trigger || '#Skills2',
             start: "top top",
-            end: "+=300%",
+            end: () => `+=${Math.max(1200, (trigger ? trigger.offsetHeight * 2 : 1200))}`,
             scrub: 1,
             pin: true,
         },

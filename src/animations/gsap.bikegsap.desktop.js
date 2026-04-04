@@ -12,11 +12,12 @@ gsap.registerPlugin(ScrollTrigger);
  * Full cinematic timeline: bike enters, moves, skills stagger in
  */
 export function initBikeGsapDesktop() {
+    const trigger = document.getElementById('skills');
     const tl = gsap.timeline({
         scrollTrigger: {
-            trigger: "#skills",
+            trigger: trigger || '#skills',
             start: "top top",
-            end: "+=300%",
+            end: () => `+=${Math.max(1200, (trigger ? trigger.offsetHeight * 2 : 1200))}`,
             scrub: 1,
             pin: true,
         },

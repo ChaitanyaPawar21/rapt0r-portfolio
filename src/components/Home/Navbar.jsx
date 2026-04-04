@@ -108,7 +108,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
 };
 
 Navbar.propTypes = {
-  activeSection: PropTypes.string.isRequired,
+  activeSection: PropTypes.string,
   setActiveSection: PropTypes.func.isRequired
 };
 

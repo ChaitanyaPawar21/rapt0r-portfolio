@@ -1,10 +1,9 @@
 // src/components/BikeGsap.jsx
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "./bikeGsap.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReact, faHtml5, faCss3Alt } from '@fortawesome/free-brands-svg-icons';
 import { faLocationCrosshairs, faRobot, faPaperclip } from '@fortawesome/free-solid-svg-icons';
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "../Home/ThemeContext";
@@ -13,131 +12,139 @@ gsap.registerPlugin(ScrollTrigger);
 
 const BikeGsap = () => {
   const { isMobile } = useTheme() || {};
+  const rootRef = useRef(null);
 
-  // Only run animations on desktop
-  useGSAP(() => {
-    if (isMobile) return; // Skip animations on mobile
+  useEffect(() => {
+    if (isMobile || !rootRef.current) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#skills",
-        start: "top top",
-        end: "+=300%",
-        scrub: 1,
-        pin: true,
-      },
-    });
+    const root = rootRef.current;
+    const ctx = gsap.context(() => {
+      // SET initial state for special (hidden)
+      gsap.set("#special", { opacity: 0, visibility: "hidden" });
 
-    // SET initial state for special (hidden)
-    gsap.set("#special", { opacity: 0 });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: root,
+          start: "top top",
+          end: () => `+=${Math.max(1200, root.offsetHeight * 2)}`,
+          scrub: 1,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-    // 1) Move the text out of the screen
-    tl.to("#ready h1", {
-      xPercent: -150,
-      duration: 19,
-      ease: "power1.inOut",
-    });
-
-    // 2) Fade in TV box
-    tl.from("#tvBox", {
-      opacity: 0,
-      duration: 0.6,
-      ease: "power1.out",
-    });
-
-    // 3) Scale down TV and round corners
-    tl.to("#tvBox", {
-      scale: 0.8,
-      borderRadius: "20%",
-      duration: 7,
-      ease: "power2.out",
-      transformOrigin: "center center",
-    });
-
-    // frontend pop
-    tl.from("#title-h1", {
-      scale: 0,
-    });
-
-    // 4) Bike: center → left
-    tl.fromTo(
-      "#ducati",
-      { xPercent: 0 },
-      {
-        xPercent: -50,
-        duration: 4,
+      // 1) Move the text out of the screen
+      tl.to("#ready h1", {
+        xPercent: -120,
+        duration: 12,
         ease: "power1.inOut",
-      },
-    );
+      });
 
-    // Stagger in lang spans
-    tl.fromTo("#lang span", {
-      opacity: 0,
-      scale: 0.5,
-    }, {
-      opacity: 1,
-      scale: 1,
-      duration: 1,
-      stagger: 0.5,
-      ease: "back.out(1.7)",
-    });
+      // 2) Fade in TV box
+      tl.from("#tvBox", {
+        opacity: 0,
+        duration: 0.6,
+        ease: "power1.out",
+      });
 
-    // Hold bike position
-    tl.fromTo(
-      "#ducati",
-      { xPercent: -50 },
-      {
-        xPercent: -50,
-        duration: 4,
+      // 3) Scale down TV and round corners
+      tl.to("#tvBox", {
+        scale: 0.8,
+        borderRadius: "20px",
+        duration: 7,
+        ease: "power2.out",
+        transformOrigin: "center center",
+      });
+
+      // frontend pop
+      tl.from("#title-h1", {
+        scale: 0,
+      });
+
+      // 4) Bike: center → left
+      tl.fromTo(
+        "#ducati",
+        { xPercent: 0 },
+        {
+          xPercent: -50,
+          duration: 4,
+          ease: "power1.inOut",
+        },
+      );
+
+      // Stagger in lang spans
+      tl.fromTo("#lang span", {
+        opacity: 0,
+        scale: 0.5,
+      }, {
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        stagger: 0.5,
+        ease: "back.out(1.7)",
+      });
+
+      // Hold bike position
+      tl.fromTo(
+        "#ducati",
+        { xPercent: -50 },
+        {
+          xPercent: -50,
+          duration: 4,
+          ease: "power1.inOut",
+        }
+      );
+
+      // 5) Bike: left → right
+      tl.to("#ducati", {
+        xPercent: 50,
+        duration: 10,
         ease: "power1.inOut",
-      }
-    );
+      });
 
-    // 5) Bike: left → right
-    tl.to("#ducati", {
-      xPercent: 60,
-      duration: 10,
-      ease: "power1.inOut",
-    });
+      // Fade out lang and list
+      tl.to("#lang", {
+        opacity: 0,
+        duration: 3,
+        ease: "power1.inOut",
+      }, "<");
 
-    // Fade out lang and list
-    tl.to("#lang", {
-      opacity: 0,
-      duration: 3,
-      ease: "power1.inOut",
-    }, "<");
+      tl.to("#list", {
+        opacity: 0,
+        duration: 1,
+      }, "<");
 
-    tl.to("#list", {
-      opacity: 0,
-      duration: 1,
-    }, "<");
+      // Show special section
+      tl.to("#special", {
+        opacity: 1,
+        visibility: "visible",
+        duration: 0.3,
+      });
 
-    // Show special section
-    tl.to("#special", {
-      opacity: 1,
-      duration: 0.3,
-    });
+      // Animate the "specials" title
+      tl.from("#spSkills", {
+        scale: 0,
+        duration: 0.5,
+      });
 
-    // Animate the "specials" title
-    tl.from("#spSkills", {
-      scale: 0,
-      duration: 0.5,
-    });
+      // Animate each special skill span with stagger
+      tl.fromTo("#special span", {
+        opacity: 0,
+        scale: 0.5,
+        y: 20,
+      }, {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "back.out(1.7)",
+      });
+    }, root);
 
-    // Animate each special skill span with stagger
-    tl.fromTo("#special span", {
-      opacity: 0,
-      scale: 0.5,
-      y: 20,
-    }, {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: "back.out(1.7)",
-    });
-
+    return () => ctx.revert();
   }, [isMobile]);
 
   // Mobile static view
@@ -194,18 +201,20 @@ const BikeGsap = () => {
   return (
     <div
       id="skills"
+      ref={rootRef}
       className="Skills-section"
+      style={{ marginBottom: -2 }} 
     >
       {/* Big heading */}
       <div
         id="ready"
-        className="relative font-[Bebas Neue] text-[5vw] sm:text-[10vw] md:text-[15vw] lg:text-[30vw] font-bold whitespace-nowrap w-max mx-auto pt-32"
+        className="ready-heading"
       >
         <h1>TIME FOR MORE SKILLS</h1>
       </div>
 
       {/* TV box with bike inside */}
-      <div id="tvBox" className="tvBox-panel bg-white text-black">
+      <div id="tvBox" className="tvBox-panel">
         <img
           id="ducati"
           src="/assets/skills/ducati.png"
@@ -213,11 +222,11 @@ const BikeGsap = () => {
           className="ducati-img"
         />
 
-        <div id="title-h1" className="absolute top-0 left-1/2 -translate-x-1/2 text-center">
+        <div id="title-h1" className="title-overlay">
           <span className="mb-0 pd-0">
             <span className="inline-block">Frontend</span>
           </span>
-          <div id="list" className="text-[3rem] relative top-5 -right-2">
+          <div id="list" className="list-label">
             <span>BASE SPECS</span>
           </div>
           <div id="lang">
@@ -225,8 +234,8 @@ const BikeGsap = () => {
             <span><FontAwesomeIcon icon={faHtml5} /> HTML</span>
             <span><FontAwesomeIcon icon={faCss3Alt} /> CSS3</span>
           </div>
-          <div id="special" className="absolute top-0 left-1/2 -translate-x-1/2 text-center">
-            <div id="spSkills" className="text-[3rem] relative top-5 -right-2">SF EDITION</div>
+          <div id="special" className="special-overlay">
+            <div id="spSkills" className="spSkills-label">SF EDITION</div>
             <span><FontAwesomeIcon icon={faLocationCrosshairs} />GSAP</span>
             <span><FontAwesomeIcon icon={faRobot} />Tailwind</span>
             <span
@@ -235,7 +244,6 @@ const BikeGsap = () => {
             >
               <FontAwesomeIcon icon={faPaperclip} />certificate
             </span>
-
           </div>
         </div>
       </div>

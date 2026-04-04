@@ -1,187 +1,243 @@
-// src/components/ProjectShowcase.js
-import React, { useState } from 'react';
-import { ExternalLink, X } from 'lucide-react';
-import { useTheme } from './ThemeContext';
+// src/components/ProjectShowcase.js (repurposed as Skills / Performance Specifications)
+import React, { useEffect, useMemo, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight } from "lucide-react";
+import { useTheme } from "./ThemeContext";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const SkillCard = ({ skill }) => {
+  return (
+    <div
+      className="group relative w-[80vw] md:w-[40vw] h-[60vh] flex-shrink-0 flex flex-col justify-end p-8 md:p-12 overflow-hidden rounded-md border border-[rgba(255,107,53,0.20)] bg-[#0b0b0b] transition-transform duration-500 hover:-translate-y-4 hover:shadow-[0_0_45px_rgba(255,77,0,0.18)] backdrop-blur-md"
+      role="group"
+      aria-label={`${skill.title} skill card`}
+    >
+      <div
+        className="absolute top-4 right-8 font-[Bebas Neue] text-8xl md:text-[10rem] text-[var(--bg)] opacity-45 select-none group-hover:text-[var(--accent)] group-hover:opacity-10 transition-colors duration-700"
+        aria-hidden
+      >
+        {skill.id}
+      </div>
+
+      <div className="relative z-10 flex flex-col h-full justify-between">
+        <div className="font-[Rajdhani] tracking-widest text-xs font-bold uppercase mb-4 text-[var(--accent-soft)]">
+          {skill.tag}
+        </div>
+
+        <div className="mt-auto">
+          <h4 className="font-[Bebas Neue] text-4xl md:text-5xl text-[var(--text)] uppercase mb-4 group-hover:text-[var(--accent)] transition-colors">
+            {skill.title}
+          </h4>
+
+          <p className="font-[Inter] text-[var(--muted)] text-sm md:text-base line-clamp-3 mb-6">
+            {skill.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 border-t border-[rgba(255,107,53,0.18)] pt-4">
+            {skill.stack.map((tech) => (
+              <span
+                key={tech}
+                className="text-xs border border-[rgba(255,107,53,0.25)] px-3 py-1 text-[var(--accent)] bg-black/20"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between pt-4 border-t border-[rgba(255,107,53,0.10)] mt-3">
+            <span className="font-[Inter] text-xs text-[var(--text)]/70 uppercase tracking-wider">
+              {skill.proficiency}
+            </span>
+            <button
+              className="w-10 h-10 rounded-full border border-[var(--accent)] flex items-center justify-center text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-[var(--bg)] transition-colors"
+              type="button"
+              aria-label="Skill details"
+              onClick={() => {
+                const el = document.getElementById("contact");
+                el?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+            >
+              <ArrowUpRight size={18} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const ProjectShowcase = () => {
-  const { darkMode, theme } = useTheme();
-  const [selectedProject, setSelectedProject] = useState(null);
+  const { darkMode } = useTheme();
+  const containerRef = useRef(null);
+  const scrollRef = useRef(null);
 
-  const projects = [
-    {
-      id: 1,
-      name: 'DigiLocker Clone',
-      subtitle: 'ByteVault',
-      description:
-        'Platform where user can store their certificates and documents',
-      imageDark:
-        '../assets/projects/bytevault.png',
-      imageLight:
-        '../assets/projects/bytevault.png',
-      specs: ['React', 'Node.js', 'MongoDB'],
-      stats: { speed: '130', power: '18hp', torque: '27 Nm' },
-      challenge:
-        'Built a scalable platform handling 50K daily users with real-time inventory sync',
-      results: [
-        '98/100 Lighthouse score',
-        '340% conversion increase',
-        'Sub 1.5s page loads',
-      ],
-      link: 'https://github.com/ChaitanyaPawar21/ProjectSIH',
-    },
-    {
-      id: 2,
-      name: 'KTM 390 Duke',
-      subtitle: 'SaaS Dashboard',
-      description:
-        'Agile analytics platform for real-time business intelligence',
-      imageDark:
-        'https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=800&h=500&fit=crop',
-      imageLight:
-        'https://images.unsplash.com/photo-1558981852-426c6c22a060?w=800&h=500&fit=crop',
-      specs: ['Next.js', 'TypeScript', 'MongoDB', 'D3.js'],
-      stats: { speed: '95', power: '10K queries/sec', torque: '0.8s response' },
-      challenge:
-        'Created a lightweight yet powerful analytics dashboard with complex data visualizations',
-      results: [
-        'Real-time data processing',
-        'Custom chart library',
-        'Mobile-first responsive',
-      ],
-      link: 'https://github.com/ChaitanyaPawar21/ProjectSIH',
-    },
-    {
-      id: 3,
-      name: 'Xtreme 250R',
-      subtitle: 'Social Network App',
-      description:
-        'Rugged community platform built for engagement and scalability',
-      imageDark:
-        'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&h=500&fit=crop',
-      imageLight:
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop',
-      specs: ['React Native', 'Firebase', 'Redux', 'WebSockets'],
-      stats: { speed: '92', power: '100K users', torque: 'Real-time' },
-      challenge:
-        'Developed cross-platform mobile app with real-time messaging and content feeds',
-      results: [
-        'iOS & Android support',
-        'Push notifications',
-        'Offline-first architecture',
-      ],
-      link: 'https://github.com/ChaitanyaPawar21/ProjectSIH',
-    },
-    {
-      id: 4,
-      name: 'Honda CBR650R',
-      subtitle: 'AI Content Generator',
-      description:
-        'Refined ML-powered tool for automated content creation',
-      imageDark:
-        'https://images.unsplash.com/photo-1599819177910-c7e9b4c6277a?w=800&h=500&fit=crop',
-      imageLight:
-        'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&h=500&fit=crop',
-      specs: ['Python', 'TensorFlow', 'FastAPI', 'React'],
-      stats: { speed: '96', power: '1M tokens/day', torque: '200ms latency' },
-      challenge:
-        'Integrated GPT models with custom training for brand-specific content generation',
-      results: [
-        '90% time savings',
-        'Multi-language support',
-        'Custom fine-tuning pipeline',
-      ],
-      link: 'https://github.com/ChaitanyaPawar21/ProjectSIH',
-    },
-  ];
+  const skills = useMemo(
+    () => [
+      {
+        id: "01",
+        tag: "[Frontend · Arsenal]",
+        title: "Frontend Arsenal",
+        description:
+          "Interfaces engineered for speed and clarity: animation, state, and performance—built to feel premium under pressure.",
+        stack: ["React", "GSAP", "Tailwind", "WebPerf"],
+        proficiency: "Polish + performance",
+      },
+      {
+        id: "02",
+        tag: "[Backend · Infrastructure]",
+        title: "Backend Infrastructure",
+        description:
+          "Systems that scale: APIs, databases, caching, and secure flows—engineered for reliability and low latency.",
+        stack: ["Node.js", "PostgreSQL", "Redis", "Auth"],
+        proficiency: "Latency-tuned reliability",
+      },
+      {
+        id: "03",
+        tag: "[Game Dev · Reality]",
+        title: "Game Dev Lab",
+        description:
+          "Simulation-minded engineering: gameplay loops, terminal UX, and performant logic for interactive experiences.",
+        stack: ["C++", "CLI", "Game Logic", "Real-time"],
+        proficiency: "Systems-first playability",
+      },
+      {
+        id: "04",
+        tag: "[AI/ML · DevOps Engine]",
+        title: "AI/ML + DevOps",
+        description:
+          "From pipelines to production: model tooling, orchestration, and deployment discipline—automated where it matters.",
+        stack: ["FastAPI", "FAISS", "Docker", "CI/CD"],
+        proficiency: "Shipped & monitored",
+      },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    const pinWrap = scrollRef.current;
+    const container = containerRef.current;
+    if (!pinWrap || !container) return;
+
+    const reduceMotion =
+      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    const getScrollWidth = () => Math.max(0, pinWrap.scrollWidth - window.innerWidth);
+
+    ScrollTrigger.refresh();
+
+    let tween = null;
+    const createTween = () => {
+      if (tween) {
+        try { tween.scrollTrigger?.kill?.(); tween.kill?.(); } catch (e) { /* noop */ }
+      }
+      tween = gsap.to(pinWrap, {
+        x: () => -getScrollWidth(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${getScrollWidth()}`,
+          invalidateOnRefresh: true,
+          onLeave: () => {
+            const machines = document.getElementById("machines");
+            if (!machines) return;
+            machines.classList.remove("opacity-0", "pointer-events-none", "translate-y-8");
+            machines.classList.add("opacity-100", "translate-y-0");
+          },
+          onEnterBack: () => {
+            const machines = document.getElementById("machines");
+            if (!machines) return;
+            machines.classList.add("opacity-0", "pointer-events-none", "translate-y-8");
+            machines.classList.remove("opacity-100", "translate-y-0");
+          },
+        },
+      });
+    };
+
+    createTween();
+
+    // Recreate on resize to recalc widths
+    let resizeTimeout = null;
+    const onResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+        createTween();
+      }, 120);
+    };
+    window.addEventListener('resize', onResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', onResize);
+      clearTimeout(resizeTimeout);
+      if (tween) {
+        try { tween.scrollTrigger?.kill?.(); tween.kill?.(); } catch (e) { /* noop */ }
+      }
+    };
+  }, [skills]);
+
+  const cssVars = darkMode
+    ? {
+        "--accent": "#ff6b35",
+        "--accent-soft": "rgba(255,107,53,0.75)",
+        "--bg": "#070707",
+        "--text": "#f0ece4",
+        "--muted": "rgba(240,236,228,0.78)",
+      }
+    : {
+        "--accent": "#ea580c",
+        "--accent-soft": "rgba(234,88,12,0.75)",
+        "--bg": "#f8f8f8",
+        "--text": "#111111",
+        "--muted": "rgba(17,17,17,0.70)",
+      };
 
   return (
-    <section id="custom-builds" className="py-20 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className={`mb-4 ${theme.accent} text-sm tracking-widest font-semibold`}>
-          CUSTOM BUILDS
-        </div>
-        <h2 className="text-4xl md:text-5xl font-bold mb-12">THE SHOWROOM</h2>
+    <section
+      ref={containerRef}
+      id="custom-builds"
+      className="relative w-full h-screen bg-[var(--bg)] overflow-hidden flex items-center"
+      style={cssVars}
+      aria-label="Performance Specifications Skills section"
+    >
+      {/* Background Decor */}
+      <div className="absolute top-20 left-20 pointer-events-none opacity-20">
+        <h2
+          className="font-[Bebas Neue] text-[15vw]"
+          style={{
+            WebkitTextStroke: "2px rgba(255,107,53,0.85)",
+            color: "transparent",
+            letterSpacing: "2px",
+          }}
+        >
+          SKILLS
+        </h2>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {projects.map((project, idx) => (
-            <div
-              key={project.id}
-              className={`${theme.card} ${theme.border} border ${theme.cardHover} transition-all cursor-pointer group overflow-hidden`}
-              onClick={() => setSelectedProject(project)}
-            >
-              <div className="relative overflow-hidden h-64">
-                <img
-                  src={darkMode ? project.imageDark : project.imageLight}
-                  alt={project.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div
-                  className={`absolute inset-0 ${darkMode
-                      ? 'bg-gradient-to-t from-black via-black/50 to-transparent'
-                      : 'bg-gradient-to-t from-white via-white/50 to-transparent'
-                    }`}
-                />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className={`${theme.accent} text-sm font-bold mb-1`}>
-                    BUILD #{String(idx + 1).padStart(2, '0')}
-                  </div>
-                  <h3 className="text-2xl font-bold mb-1">{project.name}</h3>
-                  <p className={theme.textSecondary}>{project.subtitle}</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <p className={`${theme.textSecondary} mb-4`}>{project.description}</p>
-                <div className="mb-4">
-                  <div className={`text-xs ${theme.textTertiary} mb-2 font-semibold`}>
-                    SPECS:
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {project.specs.map((spec, i) => (
-                      <span
-                        key={i}
-                        className={`text-xs ${theme.bgTertiary} px-3 py-1 ${theme.accent} ${theme.borderSecondary} border`}
-                      >
-                        {spec}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div
-                  className={`grid grid-cols-3 gap-4 text-center ${theme.border} border-t pt-4`}
-                >
-                  <div>
-                    <div className={`${theme.accent} font-bold text-lg`}>
-                      {project.stats.speed}
-                    </div>
-                    <div className={`text-xs ${theme.textTertiary}`}>SPEED</div>
-                  </div>
-                  <div>
-                    <div className={`${theme.accent} font-bold text-lg`}>
-                      {project.stats.power}
-                    </div>
-                    <div className={`text-xs ${theme.textTertiary}`}>POWER</div>
-                  </div>
-                  <div>
-                    <div className={`${theme.accent} font-bold text-lg`}>
-                      {project.stats.torque}
-                    </div>
-                    <div className={`text-xs ${theme.textTertiary}`}>TORQUE</div>
-                  </div>
-                </div>
-                <button
-                  className={`w-full mt-4 ${theme.bgTertiary} ${theme.accent.replace(
-                    'text-',
-                    'hover:bg-'
-                  )} ${theme.accent} ${darkMode ? 'hover:text-black' : 'hover:text-white'
-                    } font-bold py-3 transition-all`}
-                  onClick={() => window.open(project.link, '_blank')}
-                >
-                  VIEW BLUEPRINT <ExternalLink className="inline ml-2" size={16} />
-                </button>
-              </div>
-            </div>
-          ))}
+      <div
+        ref={scrollRef}
+        className="flex h-full items-center px-[10vw] gap-[5vw] relative z-10 w-[400vw] lg:w-[250vw]"
+      >
+        {/* Intro Card */}
+        <div className="w-[80vw] md:w-[40vw] flex-shrink-0 flex flex-col justify-center">
+          <h3 className="font-[Bebas Neue] text-5xl md:text-7xl text-[var(--accent)] uppercase tracking-wide">
+            Built Different
+          </h3>
+          <p className="font-[Inter] text-[var(--muted)] mt-6 text-sm md:text-base leading-relaxed max-w-sm">
+            Horizontal scroll through my capabilities—UI craft, systems depth, interactive logic, and deployment discipline.
+          </p>
         </div>
+
+        {/* Skill Cards */}
+        {skills.map((skill) => (
+          <SkillCard key={skill.id} skill={skill} />
+        ))}
       </div>
     </section>
   );

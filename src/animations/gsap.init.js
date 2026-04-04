@@ -81,10 +81,10 @@ export function cleanupAnimations() {
         mm.revert();
         mm = null;
     }
-    // Kill all ScrollTriggers
-    ScrollTrigger.getAll().forEach((st) => st.kill());
-    // Kill all active tweens
-    gsap.killTweensOf("*");
+    // Intentionally avoid killing all ScrollTriggers or all tweens here.
+    // Reverting the matchMedia instance created by initAnimations should
+    // cleanup timelines registered via that context. If a full global reset
+    // is required, add a dedicated function for that special-case behavior.
 }
 
 /**

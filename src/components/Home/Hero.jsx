@@ -1,111 +1,62 @@
 // src/components/Hero.js
-import React, { useEffect, useRef } from "react";
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import { ChevronRight } from "lucide-react";
 import { useTheme } from "./ThemeContext";
+import { useHeroSequenceAnimation } from "../../hooks/useHeroSequenceAnimation";
 
 
 const Hero = ({ setActiveSection }) => {
   const { darkMode, theme } = useTheme();
-
-  const containerRef = useRef(null);
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    const video = videoRef.current;
-    if (!container || !video) return;
-
-    // fine-grained thresholds allow us to respond when section is mostly visible
-    const thresholds = new Array(101).fill(0).map((_, i) => i / 100);
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          // If the section is at least 50% visible, play; otherwise pause.
-          if (entry.intersectionRatio >= 0.5) {
-            // Ensure muted for autoplay policy
-            video.muted = true;
-            const p = video.play();
-            if (p && p.catch) {
-              p.catch(() => {
-                // fallback: keep muted and try again
-                video.muted = true;
-                video.play().catch(() => { });
-              });
-            }
-          } else {
-            try {
-              video.pause();
-            } catch {
-              // ignore
-            }
-          }
-        }
-      },
-      { threshold: thresholds, root: null }
-    );
-
-    io.observe(container);
-
-    // Pause video when tab is hidden to save CPU/bandwidth
-    const onVisibility = () => {
-      if (!video) return;
-      if (document.hidden) video.pause();
-      else {
-        // If the hero is still visible, try to resume (muted)
-        const rect = container.getBoundingClientRect();
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        const visible = rect.top < vh && rect.bottom > 0;
-        if (visible) {
-          video.muted = true;
-          video.play().catch(() => { });
-        }
-      }
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-
-    return () => {
-      io.disconnect();
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
-  }, []);
+  const {
+    refs: {
+      sectionRef,
+      canvasRef,
+      overlayRef,
+      eyebrowRef,
+      titleRef,
+      subtitleRef,
+      ctaRef,
+    },
+  } = useHeroSequenceAnimation({
+    totalFrames: 80,
+    basePath: "/assets/hero",
+  });
 
   return (
     <section
-      ref={containerRef}
-      className="pt-32 pb-20 px-4 relative overflow-hidden "
+      ref={sectionRef}
+      className="relative h-screen overflow-hidden"
       aria-label="Hero"
     >
-      {/* Background video (absolute) */}
       <div className="absolute inset-0 z-0">
-        <video
-  ref={videoRef}
-  className="w-full h-full object-cover absolute inset-0"
-  src="https://res.cloudinary.com/drn3ezthq/video/upload/KTM_FHD_-_Made_with_Clipchamp_ruttav.mp4"
-  poster="/assets/bikes/ktm1390.webp"
-  playsInline
-  muted
-  loop
-  preload="metadata"
-  aria-label="Hero preview video"
-/>
-        {/* slight overlay to darken video for text readability */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 h-full w-full will-change-transform pointer-events-none"
+          style={{ display: "block" }}
+          aria-hidden="true"
+        />
         <div
+          ref={overlayRef}
           className={`absolute inset-0 pointer-events-none ${darkMode
-              ? "bg-gradient-to-b from-orange-950/20 to-transparent"
-              : "bg-gradient-to-b from-orange-100/50 to-transparent"
+              ? "bg-gradient-to-b from-black/30 via-black/20 to-black/45"
+              : "bg-gradient-to-b from-black/10 via-black/20 to-black/40"
             }`}
         />
       </div>
 
-      {/* Content (z-10 so it sits above video) */}
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className={`mb-4 ${theme.accent} text-sm tracking-widest font-semibold`}>
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-end px-4 pb-14 pt-28 md:pb-20">
+        <div
+          ref={eyebrowRef}
+          className={`mb-4 ${theme.accent} text-sm tracking-widest font-semibold`}
+        >
           Chaitanya Pawar
         </div>
 
-        <h1 className="text-5xl md:text-7xl text-[#FFFFFF] font-bold mb-6 leading-tight">
+        <h1
+          ref={titleRef}
+          className="mb-6 text-4xl font-bold leading-tight text-white sm:text-5xl md:text-7xl"
+        >
           BUILT FOR
           <br />
           <span className={theme.accent}>REAL-WORLD</span>
@@ -113,11 +64,14 @@ const Hero = ({ setActiveSection }) => {
           PERFORMANCE
         </h1>
 
-        <p className={`text-xl md:text-2xl text-[#FFFFFF] mb-8 max-w-2xl`}>
+        <p
+          ref={subtitleRef}
+          className="mb-8 max-w-2xl text-lg text-white/95 sm:text-xl md:text-2xl"
+        >
           Every line of code is a gear shift — AI provides the torque, MERN delivers the speed, and DevOps keeps the engine running smooth
         </p>
 
-        <div className="flex flex-wrap gap-4">
+        <div ref={ctaRef} className="flex flex-wrap gap-4">
           <button
             onClick={() => setActiveSection("builds")}
             className={`${theme.videoText} ${theme.textWhite} ${darkMode ? "text-white" : "text-black"

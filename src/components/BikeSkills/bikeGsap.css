@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400..700&display=swap');
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  overflow-x: hidden;
-  background-color: white;
-}
-
 /* ==================================================
    MOBILE-SPECIFIC STYLES (Static Layout)
    ================================================== */
@@ -29,27 +20,30 @@ body {
   font-weight: 900;
   color: #8B2424;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-shadow: 3px 3px 6px rgba(139, 36, 36, 0.2);
   letter-spacing: 2px;
 }
 
 .mobile-bike-wrapper {
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto 40px;
+  max-width: 700px;        /* wider allowance */
+  margin: 0 auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: visible;
+  position: relative;
+  z-index: 10;             /* stays above any stacked siblings */
 }
 
 .mobile-ducati-img {
-  width: 100%;
+  width: 130%;             /* bleed beyond container for drama */
+  max-width: none;
   height: auto;
-  transform: scale(1.2);
+  transform: scale(1.35);
   transform-origin: center;
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.28));
 }
 
 .mobile-skills-layout {
@@ -59,7 +53,7 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 2px;
-  margin-top: 10px;
+  margin-top: 30px;       /* push down so bike shadow doesn't overlap */
   padding: 0 10px;
 }
 
@@ -125,7 +119,12 @@ body {
 
   .mobile-frontend-title {
     font-size: 48px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+  }
+
+  .mobile-ducati-img {
+    width: 120%;
+    transform: scale(1.25);
   }
 
   .skill-icon {
@@ -137,6 +136,7 @@ body {
   .mobile-skills-layout {
     gap: 15px;
     padding: 0 5px;
+    margin-top: 24px;
   }
 
   .mobile-skills-badges {
@@ -150,78 +150,94 @@ body {
   }
 }
 
+/* Medium phones (381–480px) */
+@media (min-width: 381px) and (max-width: 480px) {
+  .mobile-ducati-img {
+    width: 125%;
+    transform: scale(1.3);
+  }
+  .mobile-skills-layout {
+    margin-top: 28px;
+  }
+}
+
 /* ==================================================
    DESKTOP STYLES (Animated Layout)
    ================================================== */
 
-#ready h1 {
-  font-style: "Bebas Neue";
-  color: black;
+/* ── GSAP pin spacer border fix ── */
+.pin-spacer {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-bottom: none !important;
 }
 
-/* Make #skills relative so we can absolutely position the white panel */
-#skills {
+/* ── The main section ── */
+.Skills-section {
   position: relative;
-  background-color: white;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
+/* ── Big scrolling heading ── */
+.ready-heading {
+  position: relative;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(5vw, 20vw, 30vw);
+  font-weight: 700;
+  white-space: nowrap;
+  width: max-content;
+  margin: 0 auto;
+  padding-top: 8rem;
 }
 
+.ready-heading h1 {
+  color: black;
+  margin: 0;
+}
+
+/* ── TV box panel ── */
 .tvBox-panel {
   position: absolute;
   inset: 0;
   margin: auto;
-  background: #fff;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border-radius: 0;
-  z-index: 1;
+  z-index: 2;
+  will-change: transform, border-radius;
 }
 
-/* Bike image inside TV */
+/* ── Bike image inside TV ── */
 .ducati-img {
   object-fit: contain;
   display: block;
-  width: 90%;
-  max-width: 100%;
+  width: 110%;           /* bigger than before (was 90%) */
+  max-width: 110%;
+  max-height: 90vh;      /* taller allowance */
   height: auto;
-}
-
-.frontEnd {
   position: relative;
-  width: 100%;
-  text-align: center;
-  position: absolute;
-  z-index: 9;
-  top: 140px;
-  font-size: 8rem;
-  left: 50%;
-  transform: translateX(-50%);
+  z-index: 10;           /* IN FRONT of all text overlays */
+  pointer-events: none;  /* text links still clickable underneath */
 }
 
-.text-box {
+/* ── Title overlay ── */
+.title-overlay {
   position: absolute;
-  top: 5%;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  z-index: 10;
-  width: 90%;
-  max-width: 100%;
-}
-
-#title-h1 {
   font-size: 14rem;
   font-weight: 1000;
-  z-index: -9;
+  z-index: 3;            /* behind bike (z-index: 10) */
   padding: 0;
   color: red;
   font-family: "Dancing Script", cursive;
@@ -233,12 +249,8 @@ body {
   padding-bottom: 0;
 }
 
-#panel-h1 {
-  font-size: 6rem;
-  width: 100%;
-}
-
-#list {
+/* ── BASE SPECS label ── */
+.list-label {
   font-family: "Bebas Neue", cursive;
   width: 150%;
   border-color: black;
@@ -249,8 +261,10 @@ body {
   margin-left: 20px;
   font-size: 9rem;
   -webkit-text-stroke: 0.01rem black;
+  z-index: 3;
 }
 
+/* ── Language badges ── */
 #lang {
   color: green;
   font-size: 3rem;
@@ -263,6 +277,7 @@ body {
   flex-direction: column;
   text-align: left;
   gap: 0;
+  z-index: 3;
 }
 
 #lang span {
@@ -271,7 +286,8 @@ body {
   gap: 8px;
 }
 
-#special {
+/* ── Special skills overlay ── */
+.special-overlay {
   color: green;
   font-size: 3rem;
   position: absolute;
@@ -284,16 +300,18 @@ body {
   flex-direction: column;
   text-align: left;
   gap: 0;
+  visibility: hidden;
+  z-index: 3;
 }
 
-#special span {
+.special-overlay span {
   position: relative;
   top: -4rem;
   right: -9rem;
   width: 28rem;
 }
 
-#spSkills {
+.spSkills-label {
   font-family: "Bebas Neue", cursive;
   border-color: black;
   color: white;
@@ -304,6 +322,7 @@ body {
   font-size: 9rem;
   -webkit-text-stroke: 0.01rem black;
   white-space: nowrap;
+  z-index: 3;
 }
 
 
@@ -313,21 +332,17 @@ body {
 
 /* Tablets (481px – 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
-  #title-h1 {
+  .ducati-img {
+    width: 105%;
+    max-width: 105%;
+  }
+
+  .title-overlay {
     font-size: clamp(6rem, 12vw, 10rem);
   }
 
-  #panel-h1 {
-    font-size: clamp(3.5rem, 8vw, 5rem);
-  }
-
-  .frontEnd {
-    font-size: clamp(4rem, 10vw, 6rem);
-    top: clamp(100px, 12vw, 120px);
-  }
-
-  #list,
-  #spSkills {
+  .list-label,
+  .spSkills-label {
     font-size: clamp(5rem, 10vw, 7rem);
     left: clamp(2rem, 6vw, 4rem);
     top: clamp(-3rem, -5vw, -2rem);
@@ -349,7 +364,7 @@ body {
     gap: 6px;
   }
 
-  #special {
+  .special-overlay {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
     width: 5rem;
     gap: 0.2rem;
@@ -358,21 +373,17 @@ body {
 
 /* Large Tablets / Small Laptops (769px – 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
-  #title-h1 {
+  .ducati-img {
+    width: 108%;
+    max-width: 108%;
+  }
+
+  .title-overlay {
     font-size: clamp(10rem, 11vw, 12rem);
   }
 
-  #panel-h1 {
-    font-size: clamp(4.5rem, 6vw, 5.5rem);
-  }
-
-  .frontEnd {
-    font-size: clamp(6rem, 8vw, 7.5rem);
-    top: clamp(120px, 13vw, 140px);
-  }
-
-  #list,
-  #spSkills {
+  .list-label,
+  .spSkills-label {
     font-size: clamp(7rem, 9vw, 8.5rem);
     left: clamp(3rem, 5vw, 4.5rem);
     top: clamp(-3.5rem, -4.5vw, -3rem);
@@ -393,7 +404,7 @@ body {
     gap: 7px;
   }
 
-  #special {
+  .special-overlay {
     font-size: clamp(2.3rem, 3.5vw, 2.8rem);
     width: 5.5rem;
     gap: 0.15rem;
@@ -402,21 +413,17 @@ body {
 
 /* Desktop (≥ 1025px) */
 @media (min-width: 1025px) and (max-width: 1440px) {
-  #title-h1 {
+  .ducati-img {
+    width: 110%;
+    max-width: 110%;
+  }
+
+  .title-overlay {
     font-size: clamp(12rem, 10vw, 14rem);
   }
 
-  #panel-h1 {
-    font-size: clamp(5.5rem, 5vw, 6rem);
-  }
-
-  .frontEnd {
-    font-size: clamp(7.5rem, 7vw, 8rem);
-    top: clamp(140px, 12vw, 140px);
-  }
-
-  #list,
-  #spSkills {
+  .list-label,
+  .spSkills-label {
     font-size: clamp(8.5rem, 8vw, 9rem);
     left: clamp(4.5rem, 5vw, 5rem);
     top: clamp(-3.8rem, -4.2vw, -4rem);
@@ -430,7 +437,7 @@ body {
     top: clamp(-4.8rem, -5.2vw, -5rem);
   }
 
-  #special {
+  .special-overlay {
     font-size: clamp(2.8rem, 3vw, 3rem);
     width: 6rem;
   }
@@ -438,21 +445,17 @@ body {
 
 /* Ultra-Wide Displays (≥ 1441px) */
 @media (min-width: 1441px) {
-  #title-h1 {
+  .ducati-img {
+    width: 110%;
+    max-width: 110%;
+  }
+
+  .title-overlay {
     font-size: 14rem;
   }
 
-  #panel-h1 {
-    font-size: 6rem;
-  }
-
-  .frontEnd {
-    font-size: 8rem;
-    top: 140px;
-  }
-
-  #list,
-  #spSkills {
+  .list-label,
+  .spSkills-label {
     font-size: 9rem;
     left: 5rem;
     top: -4rem;
@@ -466,37 +469,25 @@ body {
     top: -5rem;
   }
 
-  #special {
+  .special-overlay {
     font-size: 3rem;
     width: 6rem;
-  }
-
-  .text-box {
-    width: 80%;
   }
 }
 
 /* Extra-Wide 4K+ Displays (≥ 2560px) */
 @media (min-width: 2560px) {
-  #title-h1 {
+  .title-overlay {
     font-size: clamp(14rem, 8vw, 18rem);
   }
 
-  #panel-h1 {
-    font-size: clamp(6rem, 4vw, 8rem);
-  }
-
-  .frontEnd {
-    font-size: clamp(8rem, 5vw, 10rem);
-  }
-
-  #list,
-  #spSkills {
+  .list-label,
+  .spSkills-label {
     font-size: clamp(9rem, 6vw, 12rem);
   }
 
   #lang,
-  #special {
+  .special-overlay {
     font-size: clamp(3rem, 2vw, 4rem);
   }
 }

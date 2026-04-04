@@ -3,7 +3,7 @@
  * Handles setup and cleanup in useEffect
  */
 import { useEffect } from "react";
-import { initAnimations, cleanupAnimations, refreshAnimations } from "../animations/gsap.init";
+import { initAnimations, refreshAnimations } from "../animations/gsap.init";
 
 /**
  * Hook to initialize GSAP animations safely in React
@@ -25,10 +25,11 @@ import { initAnimations, cleanupAnimations, refreshAnimations } from "../animati
  */
 export function useGsapAnimations(deps = []) {
     useEffect(() => {
-        // Small delay to ensure DOM is fully rendered
-        const timer = setTimeout(() => {
-            initAnimations();
-        }, 100);
+            // Small delay to ensure DOM is fully rendered
+            const timer = setTimeout(() => {
+                // initAnimations returns a matchMedia context (mm)
+            }, 100);
+            const mmLocal = initAnimations();
 
         // Debounced resize handler to prevent excessive refresh calls
         let resizeTimeout;
@@ -45,7 +46,7 @@ export function useGsapAnimations(deps = []) {
             clearTimeout(timer);
             clearTimeout(resizeTimeout);
             window.removeEventListener("resize", handleResize);
-            cleanupAnimations();
+            try { mmLocal?.revert?.(); } catch (e) { /* noop */ }
         };
     }, deps); // eslint-disable-line react-hooks/exhaustive-deps
 }

@@ -9,122 +9,138 @@ import DataStructuresPage from './components/certification/dsa';
 import ProfileSelector from './components/profile/ProfileSelector';
 import AdminTerminal from './components/admin/AdminTerminal';
 
-function App() {
-  const [profileLoaded, setProfileLoaded] = useState(false);
+// ─── Helpers ────────────────────────────────────────────────────────────────
+
+const SESSION_KEYS = {
+  profileData: 'selectedProfileData',
+  profileId: 'selectedProfileId',
+};
+
+/**
+ * Normalise a raw profile object into the minimal shape the app needs.
+ * Works whether the profile comes from sessionStorage or the selector.
+ */
+const normaliseProfile = (raw) => ({
+  id: raw.id ?? null,
+  name: raw.name ?? 'Guest',
+  role: (raw.role ?? raw.name ?? 'guest').toLowerCase(),
+  colorScheme: raw.colorScheme ?? raw.color ?? '#000000',
+});
+
+/** Map a profile to its landing route. */
+const landingRoute = (profile) => {
+  switch (profile.name.toLowerCase()) {
+    case 'admin':     return '/admin';
+    case 'recruiter': return '/recruiter';
+    default:          return '/portfolio';
+  }
+};
+
+const saveProfile = (profile) => {
+  sessionStorage.setItem(SESSION_KEYS.profileData, JSON.stringify(profile));
+  sessionStorage.setItem(SESSION_KEYS.profileId, profile.id ?? '');
+};
+
+const clearProfile = () => {
+  sessionStorage.removeItem(SESSION_KEYS.profileData);
+  sessionStorage.removeItem(SESSION_KEYS.profileId);
+};
+
+// ─── ProfileSwitcher button ──────────────────────────────────────────────────
+
+const ProfileSwitcher = ({ profile, onSwitch }) => (
+  <button
+    onClick={onSwitch}
+    title="Switch profile"
+    className="fixed top-4 right-4 z-50 flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm font-medium"
+  >
+    <span
+      className="w-6 h-6 rounded-full shrink-0"
+      style={{ backgroundColor: profile.colorScheme }}
+    />
+    {profile.name}
+  </button>
+);
+
+// ─── App ─────────────────────────────────────────────────────────────────────
+
+export default function App() {
   const [currentProfile, setCurrentProfile] = useState(null);
+  const navigate  = useNavigate();
+  const location  = useLocation();
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // Restore profile from sessionStorage on mount
+  // ── Restore session on mount ──────────────────────────────────────────────
   useEffect(() => {
-    const raw = sessionStorage.getItem('selectedProfileData');
+    const raw = sessionStorage.getItem(SESSION_KEYS.profileData);
+
     if (!raw) {
-      if (location.pathname !== '/profile' && location.pathname !== '/') {
-        navigate('/profile', { replace: true });
-      }
+      const isPublicPath = ['/', '/profile'].includes(location.pathname);
+      if (!isPublicPath) navigate('/profile', { replace: true });
       return;
     }
 
     try {
-      const profile = JSON.parse(raw);
-      const minimal = {
-        id: profile.id ?? null,
-        name: profile.name ?? 'Guest',
-        // normalize role to lowercase for consistent checks
-        role: (profile.role ?? (profile.name ? profile.name.toLowerCase() : 'guest')).toLowerCase(),
-        colorScheme: profile.colorScheme ?? profile.color ?? '#000000',
-      };
+      const profile = normaliseProfile(JSON.parse(raw));
+      setCurrentProfile(profile);
 
-      setCurrentProfile(minimal);
-      setProfileLoaded(true);
-
-      // Auto navigate to role-specific page if at root
+      // Only auto-redirect when landing on root; deep-links are preserved.
       if (location.pathname === '/') {
-        if (minimal.name.toLowerCase() === 'admin') {
-          navigate('/admin', { replace: true });
-        } else if (minimal.name.toLowerCase() === 'recruiter') {
-          navigate('/recruiter', { replace: true });
-        } else {
-          navigate('/portfolio', { replace: true });
-        }
+        navigate(landingRoute(profile), { replace: true });
       }
-    } catch (e) {
-      console.error('Failed to parse saved profile data', e);
-      sessionStorage.removeItem('selectedProfileData');
-      sessionStorage.removeItem('selectedProfileId');
+    } catch {
+      clearProfile();
       navigate('/profile', { replace: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Called when user chooses a profile in ProfileSelector
-  const handleProfileSelected = (profile) => {
-    const minimal = {
-      id: profile.id ?? null,
-      name: profile.name ?? 'Guest',
-      // normalize incoming role to lowercase
-      role: (profile.role ?? (profile.name ? profile.name.toLowerCase() : 'guest')).toLowerCase(),
-      colorScheme: profile.colorScheme ?? profile.color ?? '#000000',
-    };
-
-    sessionStorage.setItem('selectedProfileData', JSON.stringify(minimal));
-    sessionStorage.setItem('selectedProfileId', minimal.id || '');
-
-    setCurrentProfile(minimal);
-    setProfileLoaded(true);
-
-    // Navigate to role-specific landing page
-    if (minimal.name.toLowerCase() === 'admin') {
-      navigate('/admin', { replace: true });
-    } else if (minimal.name.toLowerCase() === 'recruiter') {
-      navigate('/recruiter', { replace: true });
-    } else {
-      navigate('/portfolio', { replace: true });
-    }
+  // ── Handlers ──────────────────────────────────────────────────────────────
+  const handleProfileSelected = (raw) => {
+    const profile = normaliseProfile(raw);
+    saveProfile(profile);
+    setCurrentProfile(profile);
+    navigate(landingRoute(profile), { replace: true });
   };
 
   const handleSwitchProfile = () => {
-    sessionStorage.removeItem('selectedProfileData');
-    sessionStorage.removeItem('selectedProfileId');
+    clearProfile();
     setCurrentProfile(null);
-    setProfileLoaded(false);
     navigate('/profile', { replace: true });
   };
 
-  const handleOpenFile = (path) => console.log('Open file:', path);
-  const handleOpenSection = (path) => console.log('Open section:', path);
-
+  // ── Render ────────────────────────────────────────────────────────────────
   return (
     <ThemeProvider currentProfile={currentProfile}>
-      {profileLoaded && currentProfile && (
-        <button
-          onClick={handleSwitchProfile}
-          className="fixed top-4 right-4 z-50 flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white"
-          title="Switch profile"
-        >
-          <div
-            className="w-6 h-6 rounded-full"
-            style={{ backgroundColor: currentProfile.colorScheme }}
-          />
-          <span className="text-sm font-medium">{currentProfile.name}</span>
-        </button>
+      {currentProfile && (
+        <ProfileSwitcher profile={currentProfile} onSwitch={handleSwitchProfile} />
       )}
 
       <Routes>
-        <Route path="/" element={<ProfileSelector onProfileSelected={handleProfileSelected} />} />
-        <Route path="/profile" element={<ProfileSelector onProfileSelected={handleProfileSelected} />} />
+        {/* Auth / Profile selection */}
+        <Route
+          path="/"
+          element={<ProfileSelector onProfileSelected={handleProfileSelected} />}
+        />
+        <Route
+          path="/profile"
+          element={<ProfileSelector onProfileSelected={handleProfileSelected} />}
+        />
 
-        {/* Certification routes */}
+        {/* Certification pages */}
         <Route path="/frontend-fairing" element={<FrontendFairingPage />} />
-        <Route path="/reliable-honda" element={<BackendEnginePage />} />
-        <Route path="/devops-ecu" element={<DevOpsECUPage />} />
-        <Route path="/data-structures" element={<DataStructuresPage />} />
+        <Route path="/reliable-honda"   element={<BackendEnginePage />} />
+        <Route path="/devops-ecu"       element={<DevOpsECUPage />} />
+        <Route path="/data-structures"  element={<DataStructuresPage />} />
 
-        {/* Role-specific routes */}
+        {/* Role-based landing pages */}
         <Route
           path="/admin"
-          element={<AdminTerminal onOpenFile={handleOpenFile} onOpenSection={handleOpenSection} />}
+          element={
+            <AdminTerminal
+              onOpenFile={(path) => console.log('Open file:', path)}
+              onOpenSection={(path) => console.log('Open section:', path)}
+            />
+          }
         />
         <Route path="/recruiter" element={<MotorcyclePortfolio profile={currentProfile} />} />
         <Route path="/portfolio" element={<MotorcyclePortfolio profile={currentProfile} />} />
@@ -132,5 +148,3 @@ function App() {
     </ThemeProvider>
   );
 }
-
-export default App;
