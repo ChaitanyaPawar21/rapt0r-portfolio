@@ -6,12 +6,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 const padFrameNumber = (frameNumber) => String(frameNumber).padStart(3, "0");
 
-export const buildHeroFramePaths = (totalFrames, basePath = "/assets/hero") =>
+export const buildHeroFramePaths = (totalFrames, basePath) =>
   Array.from(
     { length: totalFrames },
-    (_, index) => `${basePath}/ezgif-frame-${padFrameNumber(index + 1)}.jpg`
+    (_, index) =>
+      `${basePath}/ezgif-frame-${padFrameNumber(index + 1)}.jpg`
   );
-
+  
 export const preloadImageSequence = (frames, loadedImagesArray, onImageLoad) => {
   const concurrency = 8;
 

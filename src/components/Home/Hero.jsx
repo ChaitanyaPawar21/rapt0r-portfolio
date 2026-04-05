@@ -19,8 +19,8 @@ const Hero = ({ setActiveSection }) => {
       ctaRef,
     },
   } = useHeroSequenceAnimation({
-    totalFrames: 80,
-    basePath: "/assets/hero",
+    totalFrames: 100,
+    basePath: "https://ik.imagekit.io/1elzedpwu/hero",
   });
 
   return (

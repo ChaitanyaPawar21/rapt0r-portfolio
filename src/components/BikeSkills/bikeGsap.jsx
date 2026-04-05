@@ -23,22 +23,22 @@ const BikeGsap = () => {
       gsap.set("#special", { opacity: 0, visibility: "hidden" });
 
       const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start: "top top",
-          end: () => `+=${Math.max(1200, root.offsetHeight * 2)}`,
-          scrub: 1,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
+  scrollTrigger: {
+    trigger: root,
+    start: "top top",
+    end: () => `+=${Math.max(2400, root.offsetHeight * 4)}`,  // was 1200 / *2
+    scrub: 3,                                                  // was 1
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+  },
+});
 
       // 1) Move the text out of the screen
       tl.to("#ready h1", {
         xPercent: -120,
-        duration: 12,
+        duration: 30,
         ease: "power1.inOut",
       });
 
@@ -171,7 +171,7 @@ const BikeGsap = () => {
               <div className="skill-icon">
                 <FontAwesomeIcon icon={faHtml5} />
               </div>
-              <span>HTML</span>
+              <span>Javascript/Typescript</span>
             </div>
             <div className="skill-badge">
               <div className="skill-icon">
@@ -231,7 +231,7 @@ const BikeGsap = () => {
           </div>
           <div id="lang">
             <span><FontAwesomeIcon icon={faReact} /> React</span>
-            <span><FontAwesomeIcon icon={faHtml5} /> HTML</span>
+            <span><FontAwesomeIcon icon={faHtml5} />Javascript/Typescript</span>
             <span><FontAwesomeIcon icon={faCss3Alt} /> CSS3</span>
           </div>
           <div id="special" className="special-overlay">
