@@ -233,7 +233,7 @@ const Honda = () => {
                     <div id="lang2">
                         <span><FontAwesomeIcon icon={faNodeJs} /> Node.js</span>
                         <span><FontAwesomeIcon icon={faDatabase} />MongoDB</span>
-                        <span><FontAwesomeIcon icon={faGear} /> </span>
+                        <span><FontAwesomeIcon icon={faGear} />Express</span>
                     </div>
                     <div id="special2" className="special2-overlay">
                         <div id="spSkills2" className="spSkills2-label">SF EDITION</div>
