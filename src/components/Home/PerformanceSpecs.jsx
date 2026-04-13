@@ -29,7 +29,7 @@ const PerformanceSpecs = () => {
       category: 'DevOps ECU',
       items: ['Docker', 'AWS', 'Kubernetes'],
       level: 60,
-      route: '#skills',                    // ⬅ scroll target
+      route: '/devops-ecu',                    // ⬅ scroll target
       backgroundImage: '/assets/parts/ecu.png',
     },
     {

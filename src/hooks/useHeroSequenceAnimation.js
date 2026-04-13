@@ -12,7 +12,7 @@ export const buildHeroFramePaths = (totalFrames, basePath) =>
     (_, index) =>
       `${basePath}/ezgif-frame-${padFrameNumber(index + 1)}.jpg`
   );
-  
+
 export const preloadImageSequence = (frames, loadedImagesArray, onImageLoad) => {
   const concurrency = 8;
 
@@ -208,7 +208,7 @@ export const useHeroSequenceAnimation = ({ totalFrames = 80, basePath = "/assets
         snap: "frame",
         onUpdate: queueFrameDraw,
       }, 0)
-      .fromTo(canvasRef.current, { scale: 1.04 }, { scale: 1 }, 0)
+      .fromTo(canvasRef.current, { scale: 1 }, { scale: 1 }, 0)
       .fromTo(overlayRef.current, { opacity: 0.2 }, { opacity: 0.5 }, 0);
 
     textTimeline = gsap.timeline({

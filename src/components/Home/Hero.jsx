@@ -8,6 +8,14 @@ import { useHeroSequenceAnimation } from "../../hooks/useHeroSequenceAnimation";
 
 const Hero = ({ setActiveSection }) => {
   const { darkMode, theme } = useTheme();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const {
     refs: {
       sectionRef,
@@ -20,7 +28,7 @@ const Hero = ({ setActiveSection }) => {
     },
   } = useHeroSequenceAnimation({
     totalFrames: 100,
-    basePath: "https://ik.imagekit.io/1elzedpwu/hero",
+    basePath: isMobile ? "https://ik.imagekit.io/ht1e6kqd8/hero" : "https://ik.imagekit.io/1elzedpwu/hero",
   });
 
   return (
@@ -71,11 +79,11 @@ const Hero = ({ setActiveSection }) => {
           Every line of code is a gear shift — AI provides the torque, MERN delivers the speed, and DevOps keeps the engine running smooth
         </p>
 
-        <div ref={ctaRef} className="flex flex-wrap gap-4">
+        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-6">
           <button
             onClick={() => setActiveSection("builds")}
             className={`${theme.videoText} ${theme.textWhite} ${darkMode ? "text-white" : "text-black"
-              } font-bold px-8 py-4 transition-all hover:scale-105`}
+              } w-full sm:w-auto font-bold px-8 py-4 transition-all text-center justify-center`}
           >
             VIEW BUILDS <ChevronRight className="inline ml-2" size={20} />
           </button>
@@ -85,10 +93,10 @@ const Hero = ({ setActiveSection }) => {
               setActiveSection("contact");
               window.open("./Chaitanya.pdf", '_blank', 'noopener,noreferrer');
             }}
-            className={`border-2 ${theme.accent} ${theme.card} ${theme.accent.replace(
+            className={`w-full sm:w-auto border-2 ${theme.accent} ${theme.card} ${theme.accent.replace(
               "text-",
               "hover:bg-"
-            )} ${darkMode ? "hover:text-black" : "hover:text-white"} font-bold px-8 py-4 transition-all`}
+            )} ${darkMode ? "hover:text-black" : "hover:text-white"} font-bold px-8 py-4 transition-all text-center justify-center`}
           >
             View Resume
           </button>

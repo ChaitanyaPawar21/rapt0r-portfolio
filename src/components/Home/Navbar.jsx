@@ -38,11 +38,11 @@ const Navbar = ({ activeSection, setActiveSection }) => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-16 lg:px-18">
         <div className="flex items-center justify-between h-16">
-          <div className={`text-2xl font-bold ${theme.accent || 'text-black'} flex items-center gap-2`}>
+          <div className={`text-xl sm:text-2xl font-bold ${theme.accent || 'text-black'} flex items-center gap-2 sm:gap-3`}>
             <img
               src={darkMode ? '/assets/bikes/logoWhite.png' : '/assets/bikes/logo.png'}
               alt="Rapt0r logo"
-              className="h-16 w-auto object-contain"
+              className="h-10 sm:h-12 w-auto object-contain"
             />
             rapt0r
           </div>

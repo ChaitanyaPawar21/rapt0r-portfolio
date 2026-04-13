@@ -233,12 +233,12 @@ const Honda = () => {
                     <div id="lang2">
                         <span><FontAwesomeIcon icon={faNodeJs} /> Node.js</span>
                         <span><FontAwesomeIcon icon={faDatabase} />MongoDB</span>
-                        <span><FontAwesomeIcon icon={faGear} /> APIs</span>
+                        <span><FontAwesomeIcon icon={faGear} /> </span>
                     </div>
                     <div id="special2" className="special2-overlay">
                         <div id="spSkills2" className="spSkills2-label">SF EDITION</div>
                         <span><FontAwesomeIcon icon={faLocationCrosshairs} />DevOps</span>
-                        <span><FontAwesomeIcon icon={faRobot} />Vercel</span>
+                        <span><FontAwesomeIcon icon={faRobot} />FastAPI</span>
                         <span
                             onClick={() => window.open("/reliable-honda")}
                             style={{ cursor: 'pointer' }}
