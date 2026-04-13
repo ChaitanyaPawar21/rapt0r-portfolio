@@ -55,8 +55,7 @@ const SkillCard = ({ skill }) => {
               type="button"
               aria-label="Skill details"
               onClick={() => {
-                const el = document.getElementById("contact");
-                el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                window.open(skill.github, "_blank", "noopener,noreferrer");
               }}
             >
               <ArrowUpRight size={18} />
@@ -78,29 +77,32 @@ const ProjectShowcase = () => {
       {
         id: "01",
         tag: "[Frontend · Arsenal]",
-        title: "Frontend Arsenal",
+        title: "Personal Portfolio",
         description:
           "Interfaces engineered for speed and clarity: animation, state, and performance—built to feel premium under pressure.",
-        stack: ["React", "GSAP", "Tailwind", "WebPerf"],
-        proficiency: "Polish + performance",
+        stack: ["React", "GSAP", "Tailwind"],
+        proficiency: "I Love bikes",
+        github: "https://github.com/ChaitanyaPawar21/rapt0r-portfolio",
       },
       {
         id: "02",
         tag: "[Backend · Infrastructure]",
-        title: "Backend Infrastructure",
+        title: "LeetGPT",
         description:
-          "Systems that scale: APIs, databases, caching, and secure flows—engineered for reliability and low latency.",
-        stack: ["Node.js", "PostgreSQL", "Redis", "Auth"],
+          "AI- based DSA assistant to help you learn and understand DSA questions",
+        stack: ["Node.js", "MongoDB", "Agentic AI", "Auth"],
         proficiency: "Latency-tuned reliability",
+        github: "https://github.com/ChaitanyaPawar21/LeetGPT",
       },
       {
         id: "03",
         tag: "[Game Dev · Reality]",
-        title: "Game Dev Lab",
+        title: "SOON",
         description:
           "Simulation-minded engineering: gameplay loops, terminal UX, and performant logic for interactive experiences.",
-        stack: ["C++", "CLI", "Game Logic", "Real-time"],
+        stack: ["SOON"],
         proficiency: "Systems-first playability",
+        github: "https://github.com/ChaitanyaPawar21/",
       },
       {
         id: "04",
@@ -110,9 +112,10 @@ const ProjectShowcase = () => {
           "From pipelines to production: model tooling, orchestration, and deployment discipline—automated where it matters.",
         stack: ["FastAPI", "FAISS", "Docker", "CI/CD"],
         proficiency: "Shipped & monitored",
+        github: "https://github.com/ChaitanyaPawar21/",
       },
     ],
-    []
+    [],
   );
 
   useEffect(() => {
@@ -121,17 +124,24 @@ const ProjectShowcase = () => {
     if (!pinWrap || !container) return;
 
     const reduceMotion =
-      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
 
-    const getScrollWidth = () => Math.max(0, pinWrap.scrollWidth - window.innerWidth);
+    const getScrollWidth = () =>
+      Math.max(0, pinWrap.scrollWidth - window.innerWidth);
 
     ScrollTrigger.refresh();
 
     let tween = null;
     const createTween = () => {
       if (tween) {
-        try { tween.scrollTrigger?.kill?.(); tween.kill?.(); } catch (e) { /* noop */ }
+        try {
+          tween.scrollTrigger?.kill?.();
+          tween.kill?.();
+        } catch (e) {
+          /* noop */
+        }
       }
       tween = gsap.to(pinWrap, {
         x: () => -getScrollWidth(),
@@ -146,13 +156,21 @@ const ProjectShowcase = () => {
           onLeave: () => {
             const machines = document.getElementById("machines");
             if (!machines) return;
-            machines.classList.remove("opacity-0", "pointer-events-none", "translate-y-8");
+            machines.classList.remove(
+              "opacity-0",
+              "pointer-events-none",
+              "translate-y-8",
+            );
             machines.classList.add("opacity-100", "translate-y-0");
           },
           onEnterBack: () => {
             const machines = document.getElementById("machines");
             if (!machines) return;
-            machines.classList.add("opacity-0", "pointer-events-none", "translate-y-8");
+            machines.classList.add(
+              "opacity-0",
+              "pointer-events-none",
+              "translate-y-8",
+            );
             machines.classList.remove("opacity-100", "translate-y-0");
           },
         },
@@ -170,14 +188,19 @@ const ProjectShowcase = () => {
         createTween();
       }, 120);
     };
-    window.addEventListener('resize', onResize);
+    window.addEventListener("resize", onResize);
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener("resize", onResize);
       clearTimeout(resizeTimeout);
       if (tween) {
-        try { tween.scrollTrigger?.kill?.(); tween.kill?.(); } catch (e) { /* noop */ }
+        try {
+          tween.scrollTrigger?.kill?.();
+          tween.kill?.();
+        } catch (e) {
+          /* noop */
+        }
       }
     };
   }, [skills]);
@@ -230,7 +253,8 @@ const ProjectShowcase = () => {
             Built Different
           </h3>
           <p className="font-[Inter] text-[var(--muted)] mt-6 text-sm md:text-base leading-relaxed max-w-sm">
-            Horizontal scroll through my capabilities—UI craft, systems depth, interactive logic, and deployment discipline.
+            Horizontal scroll through my capabilities—UI craft, systems depth,
+            interactive logic, and deployment discipline.
           </p>
         </div>
 
