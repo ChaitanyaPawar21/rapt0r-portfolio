@@ -1,71 +1,230 @@
-# Portfolio Website
+# 🏍️ Rapt0r Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> *"Every line of code is a gear shift — AI provides the torque, MERN delivers the speed, and DevOps keeps the engine running smooth."*
 
-## Available Scripts
+A premium, motorcycle-themed developer portfolio built with React, GSAP, and Tailwind CSS. Features scroll-driven animations, a cinematic RPM loader, role-based profile routing, and a horizontally-scrolling skills showcase.
 
-In the project directory, you can run:
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-rapt0r--portfolio.vercel.app-orange?style=for-the-badge&logo=vercel)](https://rapt0r-portfolio.vercel.app)
+[![React](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-7.x-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev)
+[![GSAP](https://img.shields.io/badge/GSAP-3.14-88CE02?style=for-the-badge&logo=greensock)](https://gsap.com)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
+## ✨ Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **🎬 Cinematic Intro Loader** — Animated RPM gauge that revs to 12 000 RPM on first visit
+- **🖼️ Frame-sequence Hero** — Canvas-rendered scroll-driven animation using ImageKit CDN (separate desktop & mobile sprite sets)
+- **↔️ Horizontal Skill Scroll** — GSAP `ScrollTrigger`-pinned horizontal carousel of project / skill cards
+- **🌓 Dark / Light Theme** — Global `ThemeContext` with smooth transitions; theme changes propagate to every section
+- **👥 Role-Based Routing** — Profile selector dispatches visitors to `/admin`, `/recruiter`, or `/portfolio` automatically
+- **🏍️ Motorcycle DNA** — BikeGsap section (scroll-animated bike parts), Honda specs section, cinematic video, and full performance-spec UI language
+- **📜 Certification Pages** — Dedicated routes for Frontend, Backend, DevOps, and DSA certifications
+- **📬 Contact Form** — Powered by [Web3Forms](https://web3forms.com) — zero backend required
+- **📱 Fully Responsive** — Mobile-first layouts across every section
+- **⚡ Deployed on Vercel** — Automatic rebuilds on `main` push
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🗂️ Project Structure
 
-### `npm run build`
+```
+rapt0r-portfolio/
+│
+├── public/
+│   ├── index.html              # HTML template
+│   ├── Chaitanya.pdf           # Resume (served from root)
+│   └── assests/
+│       ├── bikes/              # Bike images & cinematic video
+│       ├── certificates/       # PDF & PNG certificates
+│       ├── parts/              # Motorcycle part diagrams
+│       ├── profile/            # Profile avatars
+│       └── skills/             # Tech / skill images
+│
+├── src/
+│   ├── App.jsx                 # Root router + profile session logic
+│   ├── MotorcyclePortfolio.jsx # Main layout shell + RPM loader
+│   │
+│   ├── components/
+│   │   ├── Home/
+│   │   │   ├── Hero.jsx            # Canvas frame-sequence hero
+│   │   │   ├── Navbar.jsx          # Sticky navigation
+│   │   │   ├── BuildSheet.jsx      # "About me" section
+│   │   │   ├── ProjectShowcase.jsx # Horizontal skill scroll
+│   │   │   └── ThemeContext.jsx    # Global dark/light theme
+│   │   │
+│   │   ├── BikeSkills/
+│   │   │   ├── bikeGsap.jsx        # GSAP scroll bike animation
+│   │   │   └── bikeGsap.css
+│   │   │
+│   │   ├── honda/
+│   │   │   └── Honda.jsx           # Base specs / Honda section
+│   │   │
+│   │   ├── contact/
+│   │   │   └── Contact.jsx         # Web3Forms contact form
+│   │   │
+│   │   ├── certification/
+│   │   │   ├── frontend.jsx
+│   │   │   ├── backend.jsx
+│   │   │   ├── DevOps.jsx
+│   │   │   └── dsa.jsx
+│   │   │
+│   │   ├── profile/
+│   │   │   ├── ProfileSelector.jsx
+│   │   │   ├── ProfileLoader.jsx
+│   │   │   └── profileData.jsx
+│   │   │
+│   │   └── admin/
+│   │       └── AdminTerminal.jsx
+│   │
+│   ├── hooks/
+│   │   └── useHeroSequenceAnimation.js   # Canvas frame-sequence logic
+│   │
+│   └── pages/                    # Legacy page stubs (router targets)
+│
+├── vite.config.js
+├── tailwind.config.js
+├── vercel.json                   # SPA fallback routing
+└── package.json
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
 
-### `npm run eject`
+| Tool | Version |
+|------|---------|
+| Node.js | ≥ 18.x |
+| npm | ≥ 9.x |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+# 1. Clone the repository
+git clone https://github.com/ChaitanyaPawar21/rapt0r-portfolio.git
+cd rapt0r-portfolio
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# 2. Install dependencies
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# 3. Set up environment variables (see section below)
+cp .env.example .env
 
-## Learn More
+# 4. Start the development server
+npm run dev
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The app will be available at **http://localhost:5173** (Vite default).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🔑 Environment Variables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Create a `.env` file in the root of the project:
 
-### Analyzing the Bundle Size
+```env
+VITE_WEB3FORMS_KEY=your_web3forms_access_key
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_WEB3FORMS_KEY` | Access key from [web3forms.com](https://web3forms.com) for the contact form | ✅ Yes |
 
-### Making a Progressive Web App
+> The Hero section uses **ImageKit** CDN URLs hardcoded in `Hero.jsx`. To use your own CDN, replace the `basePath` values in `useHeroSequenceAnimation`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 📜 Available Scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Production build to `./build` |
+| `npm run preview` | Preview the production build locally |
+| `npm run deploy` | Deploy to GitHub Pages (`gh-pages`) |
+| `npm run analyze` | Bundle size analysis via `source-map-explorer` |
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🗺️ Application Routes
 
-### `npm run build` fails to minify
+| Path | Description |
+|------|-------------|
+| `/` or `/profile` | Profile selector — choose **Admin**, **Recruiter**, or **Portfolio** |
+| `/portfolio` | Full motorcycle portfolio (default visitor view) |
+| `/recruiter` | Same portfolio, recruiter color-scheme applied |
+| `/admin` | Admin terminal interface |
+| `/frontend-fairing` | Frontend certification detail page |
+| `/reliable-honda` | Backend certification detail page |
+| `/devops-ecu` | DevOps certification detail page |
+| `/data-structures` | DSA certification detail page |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
 
+## 🛠️ Tech Stack
+
+| Category | Technology |
+|----------|-----------|
+| **Framework** | React 18 |
+| **Build Tool** | Vite 7 |
+| **Animations** | GSAP 3 + ScrollTrigger |
+| **Styling** | Tailwind CSS 3 |
+| **Icons** | Lucide React, Font Awesome |
+| **Routing** | React Router v6 |
+| **Forms** | React Hook Form + Web3Forms |
+| **CDN** | ImageKit (hero sprite frames) |
+| **Deployment** | Vercel |
+
+---
+
+## 🚢 Deployment
+
+The project deploys automatically to **Vercel** on every push to `main`.
+
+`vercel.json` is configured as a SPA fallback so all routes resolve correctly:
+
+```json
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+}
+```
+
+### Manual Deploy to GitHub Pages
+
+```bash
+npm run deploy
+```
+
+This builds the project and pushes the `build/` folder to the `gh-pages` branch.
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
+
+1. Fork the repo
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'feat: add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 👤 Author
+
+**Chaitanya Pawar**
+
+[![GitHub](https://img.shields.io/badge/GitHub-ChaitanyaPawar21-181717?style=flat-square&logo=github)](https://github.com/ChaitanyaPawar21)
+
+---
+
+<p align="center">Built with ❤️ React & Tailwind · Powered by GSAP</p>
