@@ -8,6 +8,7 @@ import DevOpsECUPage from './components/certification/DevOps';
 import DataStructuresPage from './components/certification/dsa';
 import ProfileSelector from './components/profile/ProfileSelector';
 import AdminTerminal from './components/admin/AdminTerminal';
+import StalkerProfile from './components/stalker/StalkerProfile';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -32,6 +33,7 @@ const landingRoute = (profile) => {
   switch (profile.name.toLowerCase()) {
     case 'admin':     return '/admin';
     case 'recruiter': return '/recruiter';
+    case 'stalker':   return '/stalker';
     default:          return '/portfolio';
   }
 };
@@ -143,6 +145,7 @@ export default function App() {
           }
         />
         <Route path="/recruiter" element={<MotorcyclePortfolio profile={currentProfile} />} />
+        <Route path="/stalker" element={<StalkerProfile />} />
         <Route path="/portfolio" element={<MotorcyclePortfolio profile={currentProfile} />} />
       </Routes>
     </ThemeProvider>

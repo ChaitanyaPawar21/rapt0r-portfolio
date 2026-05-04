@@ -237,8 +237,9 @@ const Honda = () => {
                     </div>
                     <div id="special2" className="special2-overlay">
                         <div id="spSkills2" className="spSkills2-label">SF EDITION</div>
-                        <span><FontAwesomeIcon icon={faLocationCrosshairs} />DevOps</span>
+                        <span><FontAwesomeIcon icon={faLocationCrosshairs} />REST APIs</span>
                         <span><FontAwesomeIcon icon={faRobot} />FastAPI</span>
+                        
                         <span
                             onClick={() => window.open("/reliable-honda")}
                             style={{ cursor: 'pointer' }}
