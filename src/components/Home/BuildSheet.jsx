@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const BuildSheet = () => {
-  const { theme } = useTheme();
+  const { theme, darkMode } = useTheme();
   const sectionRef = useRef(null);
 
   useGSAP(() => {
@@ -72,19 +72,19 @@ const BuildSheet = () => {
   }, { scope: sectionRef });
 
   return (
-  <section ref={sectionRef} id="garage" className="relative z-20 py-24 px-4 overflow-hidden">
-    <video
-      className="absolute inset-0 w-full h-full object-cover"
-      src="https://ik.imagekit.io/1elzedpwu/ktm-ciematic.mp4"
-      autoPlay muted loop playsInline preload="metadata"
+  <section ref={sectionRef} id="garage" className={`relative z-20 py-24 px-4 overflow-hidden ${darkMode ? 'bg-black' : 'bg-gray-900'} text-white`}>
+    {/* Background Image */}
+    <div
+      className="absolute inset-0 bg-cover bg-center opacity-70 pointer-events-none"
+      style={{ backgroundImage: `url('https://ik.imagekit.io/mqketzb2v2/92d1d179-9fc8-446f-a3da-aea1e32445de.jpg')` }}
     />
 
-    {/* Heavier overlay — was /70, now /85 for legibility */}
-    <div className="absolute inset-0 bg-black/75" />
+    {/* Overlay for legibility */}
+    <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
     {/* Vignette */}
-    <div className="absolute inset-0" style={{
-      background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)"
+    <div className="absolute inset-0 pointer-events-none" style={{
+      background: "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.6) 100%)"
     }} />
 
     <div className="relative z-10 max-w-6xl mx-auto">

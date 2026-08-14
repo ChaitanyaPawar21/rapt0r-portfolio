@@ -124,8 +124,9 @@ const PerformanceSpecs = () => {
         ))}
       </div>
 
-      <br />
-      (If bar is less than 50% = skill is still in progress 🚧)
+      <p className={`mt-4 text-xs font-medium ${theme.textSecondary}`}>
+        (If bar is less than 50% = skill is still in progress 🚧)
+      </p>
     </div>
   );
 };

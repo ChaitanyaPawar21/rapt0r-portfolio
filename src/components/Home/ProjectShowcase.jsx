@@ -10,12 +10,12 @@ gsap.registerPlugin(ScrollTrigger);
 const SkillCard = ({ skill }) => {
   return (
     <div
-      className="group relative w-[80vw] md:w-[40vw] h-[60vh] flex-shrink-0 flex flex-col justify-end p-8 md:p-12 overflow-hidden rounded-md border border-[rgba(255,107,53,0.20)] bg-[#0b0b0b] transition-transform duration-500 hover:-translate-y-4 hover:shadow-[0_0_45px_rgba(255,77,0,0.18)] backdrop-blur-md"
+      className="group relative w-[80vw] md:w-[40vw] h-[60vh] flex-shrink-0 flex flex-col justify-end p-8 md:p-12 overflow-hidden rounded-md border border-[var(--card-border)] bg-[var(--card-bg)] shadow-md transition-all duration-500 hover:-translate-y-4 hover:shadow-[var(--shadow)] backdrop-blur-md"
       role="group"
       aria-label={`${skill.title} skill card`}
     >
       <div
-        className="absolute top-4 right-8 font-[Bebas Neue] text-8xl md:text-[10rem] text-[var(--bg)] opacity-45 select-none group-hover:text-[var(--accent)] group-hover:opacity-10 transition-colors duration-700"
+        className="absolute top-4 right-8 font-[Bebas Neue] text-8xl md:text-[10rem] text-[var(--num-color)] select-none group-hover:text-[var(--accent)] group-hover:opacity-10 transition-colors duration-700"
         aria-hidden
       >
         {skill.id}
@@ -31,27 +31,27 @@ const SkillCard = ({ skill }) => {
             {skill.title}
           </h4>
 
-          <p className="font-[Inter] text-[var(--muted)] text-sm md:text-base line-clamp-3 mb-6">
+          <p className="font-[Inter] text-[var(--muted)] text-sm md:text-base line-clamp-3 mb-6 font-medium">
             {skill.description}
           </p>
 
-          <div className="flex flex-wrap gap-2 border-t border-[rgba(255,107,53,0.18)] pt-4">
+          <div className="flex flex-wrap gap-2 border-t border-[var(--card-border)] pt-4">
             {skill.stack.map((tech) => (
               <span
                 key={tech}
-                className="text-xs border border-[rgba(255,107,53,0.25)] px-3 py-1 text-[var(--accent)] bg-black/20"
+                className="text-xs border border-[var(--stack-border)] px-3 py-1 text-[var(--accent)] bg-[var(--stack-bg)] font-semibold rounded-sm"
               >
                 {tech}
               </span>
             ))}
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-[rgba(255,107,53,0.10)] mt-3">
-            <span className="font-[Inter] text-xs text-[var(--text)]/70 uppercase tracking-wider">
+          <div className="flex items-center justify-between pt-4 border-t border-[var(--card-border)] mt-3">
+            <span className="font-[Inter] text-xs text-[var(--muted)] font-semibold uppercase tracking-wider">
               {skill.proficiency}
             </span>
             <button
-              className="w-10 h-10 rounded-full border border-[var(--accent)] flex items-center justify-center text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-[var(--bg)] transition-colors"
+              className="w-10 h-10 rounded-full border border-[var(--accent)] flex items-center justify-center text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-white transition-colors"
               type="button"
               aria-label="Skill details"
               onClick={() => {
@@ -208,17 +208,31 @@ const ProjectShowcase = () => {
   const cssVars = darkMode
     ? {
         "--accent": "#ff6b35",
-        "--accent-soft": "rgba(255,107,53,0.75)",
+        "--accent-soft": "rgba(255,107,53,0.85)",
         "--bg": "#070707",
+        "--card-bg": "#0f0f0f",
+        "--card-border": "rgba(255,107,53,0.25)",
         "--text": "#f0ece4",
         "--muted": "rgba(240,236,228,0.78)",
+        "--stack-bg": "rgba(0, 0, 0, 0.4)",
+        "--stack-border": "rgba(255,107,53,0.25)",
+        "--num-color": "rgba(255,255,255,0.06)",
+        "--shadow": "0 0 45px rgba(255,77,0,0.18)",
+        "--watermark-stroke": "2px rgba(255,107,53,0.85)",
       }
     : {
         "--accent": "#ea580c",
-        "--accent-soft": "rgba(234,88,12,0.75)",
-        "--bg": "#f8f8f8",
-        "--text": "#111111",
-        "--muted": "rgba(17,17,17,0.70)",
+        "--accent-soft": "#c2410c",
+        "--bg": "#f8fafc",
+        "--card-bg": "#ffffff",
+        "--card-border": "rgba(234,88,12,0.25)",
+        "--text": "#0f172a",
+        "--muted": "#475569",
+        "--stack-bg": "rgba(234,88,12,0.08)",
+        "--stack-border": "rgba(234,88,12,0.30)",
+        "--num-color": "rgba(0,0,0,0.06)",
+        "--shadow": "0 10px 30px rgba(234,88,12,0.12)",
+        "--watermark-stroke": "2px rgba(234,88,12,0.35)",
       };
 
   return (
@@ -234,12 +248,12 @@ const ProjectShowcase = () => {
         <h2
           className="font-[Bebas Neue] text-[15vw]"
           style={{
-            WebkitTextStroke: "2px rgba(255,107,53,0.85)",
+            WebkitTextStroke: "var(--watermark-stroke)",
             color: "transparent",
             letterSpacing: "2px",
           }}
         >
-          SKILLS
+          PROJECTS
         </h2>
       </div>
 
@@ -252,7 +266,7 @@ const ProjectShowcase = () => {
           <h3 className="font-[Bebas Neue] text-5xl md:text-7xl text-[var(--accent)] uppercase tracking-wide">
             Built Different
           </h3>
-          <p className="font-[Inter] text-[var(--muted)] mt-6 text-sm md:text-base leading-relaxed max-w-sm">
+          <p className="font-[Inter] text-[var(--muted)] mt-6 text-sm md:text-base leading-relaxed max-w-sm font-medium">
             Horizontal scroll through my capabilities—UI craft, systems depth,
             interactive logic, and deployment discipline.
           </p>
@@ -268,3 +282,4 @@ const ProjectShowcase = () => {
 };
 
 export default ProjectShowcase;
+

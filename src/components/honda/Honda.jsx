@@ -28,7 +28,7 @@ const Honda = () => {
                 scrollTrigger: {
                     trigger: root,
                     start: "top top",
-                    end: () => `+=${Math.max(1200, root.offsetHeight * 2)}`,
+                    end: () => `+=${Math.max(4000, root.offsetHeight * 5.5)}`,
                     scrub: 1,
                     pin: true,
                     pinSpacing: true,
@@ -37,17 +37,17 @@ const Honda = () => {
                 },
             });
 
-            // 1) Move the text out of the screen
+            // 1) Move the text out of the screen slowly
             tl.to("#ready2 h1", {
                 yPercent: -140,
-                duration: 20,
+                duration: 35,
                 ease: "power1.inOut",
             });
 
             // 2) Fade in TV box
             tl.from("#tvBox2", {
                 opacity: 0,
-                duration: 0.6,
+                duration: 4,
                 ease: "power1.out",
             });
 
@@ -55,7 +55,7 @@ const Honda = () => {
             tl.to("#tvBox2", {
                 scale: 0.8,
                 borderRadius: "20px",
-                duration: 7,
+                duration: 10,
                 ease: "power2.out",
                 transformOrigin: "center center",
             });
@@ -63,15 +63,16 @@ const Honda = () => {
             // backend pop
             tl.from("#title-h2", {
                 scale: 0,
+                duration: 6,
             });
 
-            // 4) Bike: center → left
+            // 4) Bike: center → left (slowed down)
             tl.fromTo(
                 "#Honda",
                 { xPercent: 0 },
                 {
                     xPercent: -50,
-                    duration: 4,
+                    duration: 20,
                     ease: "power1.inOut",
                 },
             );
@@ -83,8 +84,8 @@ const Honda = () => {
             }, {
                 opacity: 1,
                 scale: 1,
-                duration: 1,
-                stagger: 0.5,
+                duration: 6,
+                stagger: 2,
                 ease: "back.out(1.7)",
             });
 
@@ -94,15 +95,15 @@ const Honda = () => {
                 { xPercent: -50 },
                 {
                     xPercent: -50,
-                    duration: 4,
+                    duration: 15,
                     ease: "power1.inOut",
                 }
             );
 
-            // 5) Bike: left → right
+            // 5) Bike: left → right (slowed down)
             tl.to("#Honda", {
                 xPercent: 50,
-                duration: 10,
+                duration: 30,
                 ease: "power1.inOut",
             });
 
@@ -140,9 +141,14 @@ const Honda = () => {
                 opacity: 1,
                 scale: 1,
                 y: 0,
-                duration: 0.8,
-                stagger: 0.2,
+                duration: 8,
+                stagger: 2,
                 ease: "back.out(1.7)",
+            });
+
+            // Hold screen pinned on SF EDITION view so user can view skills and certificates
+            tl.to("#special2", {
+                duration: 30,
             });
         }, root);
 

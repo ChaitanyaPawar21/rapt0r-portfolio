@@ -23,29 +23,29 @@ const BikeGsap = () => {
       gsap.set("#special", { opacity: 0, visibility: "hidden" });
 
       const tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: root,
-    start: "top top",
-    end: () => `+=${Math.max(2400, root.offsetHeight * 4)}`,  // was 1200 / *2
-    scrub: 3,                                                  // was 1
-    pin: true,
-    pinSpacing: true,
-    anticipatePin: 1,
-    invalidateOnRefresh: true,
-  },
-});
+        scrollTrigger: {
+          trigger: root,
+          start: "top top",
+          end: () => `+=${Math.max(4000, root.offsetHeight * 5.5)}`,
+          scrub: 1,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-      // 1) Move the text out of the screen
+      // 1) Move the text out of the screen slowly
       tl.to("#ready h1", {
         xPercent: -120,
-        duration: 30,
+        duration: 35,
         ease: "power1.inOut",
       });
 
       // 2) Fade in TV box
       tl.from("#tvBox", {
         opacity: 0,
-        duration: 0.6,
+        duration: 4,
         ease: "power1.out",
       });
 
@@ -53,7 +53,7 @@ const BikeGsap = () => {
       tl.to("#tvBox", {
         scale: 0.8,
         borderRadius: "20px",
-        duration: 7,
+        duration: 10,
         ease: "power2.out",
         transformOrigin: "center center",
       });
@@ -61,15 +61,16 @@ const BikeGsap = () => {
       // frontend pop
       tl.from("#title-h1", {
         scale: 0,
+        duration: 6,
       });
 
-      // 4) Bike: center → left
+      // 4) Bike: center → left (slowed down)
       tl.fromTo(
         "#ducati",
         { xPercent: 0 },
         {
           xPercent: -50,
-          duration: 4,
+          duration: 20,
           ease: "power1.inOut",
         },
       );
@@ -81,8 +82,8 @@ const BikeGsap = () => {
       }, {
         opacity: 1,
         scale: 1,
-        duration: 1,
-        stagger: 0.5,
+        duration: 6,
+        stagger: 2,
         ease: "back.out(1.7)",
       });
 
@@ -92,15 +93,15 @@ const BikeGsap = () => {
         { xPercent: -50 },
         {
           xPercent: -50,
-          duration: 4,
+          duration: 15,
           ease: "power1.inOut",
         }
       );
 
-      // 5) Bike: left → right
+      // 5) Bike: left → right (slowed down)
       tl.to("#ducati", {
         xPercent: 50,
-        duration: 10,
+        duration: 30,
         ease: "power1.inOut",
       });
 
@@ -138,9 +139,14 @@ const BikeGsap = () => {
         opacity: 1,
         scale: 1,
         y: 0,
-        duration: 0.8,
-        stagger: 0.2,
+        duration: 8,
+        stagger: 2,
         ease: "back.out(1.7)",
+      });
+
+      // Hold screen pinned on SF EDITION view so user can view skills and certificates
+      tl.to("#special", {
+        duration: 30,
       });
     }, root);
 
