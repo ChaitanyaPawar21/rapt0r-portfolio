@@ -35,7 +35,7 @@ const PerformanceSpecs = () => {
     {
       category: 'DSA (C++) Torque',
       items: ['Maps & Sets', 'Trees & Graphs', 'Sorting & Searching'],
-      level: 8,
+      level: 80,
       route: '/data-structures',
       backgroundImage: '/assets/parts/torque.png',
     },
