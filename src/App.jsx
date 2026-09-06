@@ -8,7 +8,6 @@ import DevOpsECUPage from './components/certification/DevOps';
 import DataStructuresPage from './components/certification/dsa';
 import ProfileSelector from './components/profile/ProfileSelector';
 import AdminTerminal from './components/admin/AdminTerminal';
-import IntroSequence from './components/IntroSequence';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -68,7 +67,6 @@ const ProfileSwitcher = ({ profile, onSwitch }) => (
 
 export default function App() {
   const [currentProfile, setCurrentProfile] = useState(null);
-  const [showIntro, setShowIntro] = useState(false);
   const navigate  = useNavigate();
   const location  = useLocation();
 
@@ -102,11 +100,6 @@ export default function App() {
     const profile = normaliseProfile(raw);
     saveProfile(profile);
     setCurrentProfile(profile);
-
-    const hasSeen = sessionStorage.getItem('hasSeenIntro');
-    if (!hasSeen) {
-      setShowIntro(true);
-    }
     navigate(landingRoute(profile), { replace: true });
   };
 
@@ -119,9 +112,6 @@ export default function App() {
   // ── Render ────────────────────────────────────────────────────────────────
   return (
     <ThemeProvider currentProfile={currentProfile}>
-      {showIntro && (
-        <IntroSequence onComplete={() => setShowIntro(false)} />
-      )}
       {currentProfile && (
         <ProfileSwitcher profile={currentProfile} onSwitch={handleSwitchProfile} />
       )}

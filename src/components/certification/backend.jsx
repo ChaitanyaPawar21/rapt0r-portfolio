@@ -14,8 +14,8 @@ const Backend = () => {
     {
       src: './assets/certificates/DevOps.png',
       alt: 'Backend Certification 2',
-      title: 'Node.js Certification',
-      description: 'Server-side JavaScript runtime',
+      title: 'Spring Boot & Node.js Certification',
+      description: 'Spring Boot, Node.js, PostgreSQL, REST APIs',
       pdf: './assets/certificates/DevOps.pdf'
     },
     /*
@@ -64,7 +64,7 @@ const Backend = () => {
             BACKEND ENGINE
           </h1>
           <p className={`text-lg ${theme.textSecondary} mb-2`}>
-            DevOps, Node.js, MongoDB, APIs
+            Spring Boot, Node.js, PostgreSQL, Microservices
           </p>
           <div className={`${theme.border} border-t pt-4 mt-4`}>
             <p className={`text-sm ${theme.textSecondary}`}>

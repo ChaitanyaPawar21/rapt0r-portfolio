@@ -4,7 +4,7 @@ import "./Honda.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
 import { faNodeJs } from '@fortawesome/free-brands-svg-icons';
-import { faLocationCrosshairs, faRobot, faPaperclip, faDatabase, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faLocationCrosshairs, faRobot, faPaperclip, faDatabase, faGear, faServer, faShield, faKey, faBrain } from '@fortawesome/free-solid-svg-icons';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "../Home/ThemeContext";
@@ -191,7 +191,7 @@ const Honda = () => {
                             <div className="skill-icon-honda">
                                 <FontAwesomeIcon icon={faGear} />
                             </div>
-                            <span>APIs</span>
+                            <span>SPRING</span>
                         </div>
                     </div>
 
@@ -239,18 +239,22 @@ const Honda = () => {
                     <div id="lang2">
                         <span><FontAwesomeIcon icon={faNodeJs} /> Node.js</span>
                         <span><FontAwesomeIcon icon={faDatabase} />MongoDB</span>
-                        <span><FontAwesomeIcon icon={faGear} />Express</span>
+                        <span><FontAwesomeIcon icon={faGear} />Spring</span>
                     </div>
                     <div id="special2" className="special2-overlay">
                         <div id="spSkills2" className="spSkills2-label">SF EDITION</div>
-                        <span><FontAwesomeIcon icon={faLocationCrosshairs} />REST APIs</span>
-                        <span><FontAwesomeIcon icon={faRobot} />FastAPI</span>
+                       
+                    
+                        <span><FontAwesomeIcon icon={faServer} />Microservices</span>
+                        
+                        <span><FontAwesomeIcon icon={faKey} />OAuth</span>
+                        <span><FontAwesomeIcon icon={faBrain} />LLM Integration</span>
                         
                         <span
                             onClick={() => window.open("/reliable-honda")}
                             style={{ cursor: 'pointer' }}
                         >
-                            <FontAwesomeIcon icon={faPaperclip} />certificate
+                            
                         </span>
                     </div>
                 </div>

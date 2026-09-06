@@ -14,14 +14,14 @@ const PerformanceSpecs = () => {
     {
       category: 'Frontend Fairing',
       items: ['React', 'Next.js', 'Typescript'],
-      level: 50,
+      level: 90,
       route: '#skills',
       backgroundImage: '/assets/parts/bike.png',
     },
     {
       category: 'Backend Engine',
-      items: ['Node.js', 'MongoDB', 'GoLang'],
-      level: 10,
+      items: ['Spring Boot', 'Node.js', 'PostgreSQL'],
+      level: 70,
       route: '/reliable-honda',
       backgroundImage: '/assets/parts/inline.png',
     },
@@ -35,7 +35,7 @@ const PerformanceSpecs = () => {
     {
       category: 'DSA (C++) Torque',
       items: ['Maps & Sets', 'Trees & Graphs', 'Sorting & Searching'],
-      level: 30,
+      level: 8,
       route: '/data-structures',
       backgroundImage: '/assets/parts/torque.png',
     },
@@ -124,9 +124,7 @@ const PerformanceSpecs = () => {
         ))}
       </div>
 
-      <p className={`mt-4 text-xs font-medium ${theme.textSecondary}`}>
-        (If bar is less than 50% = skill is still in progress 🚧)
-      </p>
+      
     </div>
   );
 };
