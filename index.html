@@ -231,6 +231,16 @@ p{margin:0}
 .cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--violet);opacity:.55;pointer-events:none;z-index:50;display:none}
 @media (hover:hover) and (pointer:fine){.cursor{display:block}}
 
+/* ---------- BOOK A CALL ---------- */
+.book{width:min(520px,calc(100% - 32px));border:1px solid var(--ink);background:var(--bone);color:var(--ink);padding:28px}
+.book::backdrop{background:rgba(35,30,43,.55)}
+.book form{display:flex;flex-direction:column;gap:14px}
+.book h3{font-family:var(--display);font-weight:900;font-size:34px;text-transform:uppercase}
+.book label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px}
+.book input,.book select,.book textarea{font:400 16px var(--body);padding:12px;border:1px solid var(--ink);background:#fff;color:var(--ink);resize:vertical}
+.book-actions{display:flex;justify-content:flex-end;gap:10px}
+.book-msg:empty{display:none}
+
 /* ---------- LOADER ---------- */
 .loader{position:fixed;inset:0;z-index:60;background:var(--peach);color:var(--ink);display:grid;place-items:center}
 .loader .count{font-family:var(--display);font-weight:900;font-size:clamp(90px,20vw,240px);line-height:.8;font-variant-numeric:tabular-nums}
@@ -453,9 +463,35 @@ p{margin:0}
   <div class="contact">
     <span class="email" id="email">chaitanya21pawar@gmail.com</span>
     <button class="btn solid magnet" id="copy" type="button" data-cursor>Copy email</button>
-    <a class="btn magnet" href="#contact" data-cursor>WhatsApp</a>
-    <a class="btn magnet" href="#contact" data-cursor>Book a call</a>
+    <a class="btn magnet" href="https://wa.me/919370103857" target="_blank" rel="noopener" data-cursor>WhatsApp</a>
+    <button class="btn magnet" id="book" type="button" data-cursor>Book a call</button>
   </div>
+  <dialog class="book" id="bookDlg" aria-labelledby="bookTitle">
+    <form id="bookForm">
+      <span class="mono">Book a call</span>
+      <h3 id="bookTitle">Tell me about your project</h3>
+      <input type="hidden" name="subject" value="New call booking from portfolio">
+      <label>Name<input name="name" required autocomplete="name"></label>
+      <label>Phone number<input name="phone" type="tel" required autocomplete="tel" pattern="[0-9 +]{7,}"></label>
+      <label>Kind of website
+        <select name="website_type" required>
+          <option value="">Choose one</option>
+          <option>Business / company site</option>
+          <option>Portfolio</option>
+          <option>E-commerce store</option>
+          <option>Web app / dashboard</option>
+          <option>Landing page</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label>Brief description<textarea name="message" rows="4" required></textarea></label>
+      <p class="book-msg" id="bookMsg" role="status"></p>
+      <div class="book-actions">
+        <button class="btn" type="button" id="bookClose">Cancel</button>
+        <button class="btn solid" type="submit">Send</button>
+      </div>
+    </form>
+  </dialog>
   <ul class="handles" aria-label="Find me online">
     <li><a href="https://github.com/ChaitanyaPawar21" data-cursor><span class="mono">GitHub</span><strong>@ChaitanyaPawar21</strong></a></li>
     <li><a href="https://www.linkedin.com/in/chaitanyapawar21/" data-cursor><span class="mono">LinkedIn</span><strong>in/chaitanyapawar21</strong></a></li>
@@ -480,6 +516,25 @@ p{margin:0}
   var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   var hasGsap = typeof gsap !== 'undefined';
   if (hasGsap && typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+  /* ---- book a call (Web3Forms) ---- */
+  var dlg = document.getElementById('bookDlg'), bookForm = document.getElementById('bookForm'), bookMsg = document.getElementById('bookMsg');
+  document.getElementById('book').addEventListener('click', function(){ bookMsg.textContent = ''; dlg.showModal(); });
+  document.getElementById('bookClose').addEventListener('click', function(){ dlg.close(); });
+  bookForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(bookForm), btn = bookForm.querySelector('[type=submit]');
+    data.append('access_key', '455c2c3c-1922-427e-b244-92c6e6e97e42');
+    btn.disabled = true; bookMsg.textContent = 'Sending…';
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (!d.success) throw 0;
+        bookForm.reset(); bookMsg.textContent = 'Thanks! I’ll call you within 24 hours.';
+      })
+      .catch(function(){ bookMsg.textContent = 'Failed to send. Please try again or email me.'; })
+      .finally(function(){ btn.disabled = false; });
+  });
 
   /* ---- helpers ---- */
   function splitChars(root){
