@@ -1,4 +1,0 @@
-
-> motorcycle-portfolio@0.1.0 start
-> react-scripts start
-
